@@ -3,12 +3,15 @@ package frc.robot;
 import edu.wpi.first.wpilibj.GenericHID;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.PS4Controller;
+import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.InstantCommand;
 import edu.wpi.first.wpilibj2.command.RunCommand;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 
 import frc.robot.autos.*;
+import frc.robot.autos.sequences.MidPlusMobility;
 import frc.robot.commands.*;
 import frc.robot.subsystems.*;
 
@@ -42,6 +45,9 @@ public class RobotContainer {
     private final Intake s_Intake = new Intake();
     private final Pivot s_Pivot = new Pivot();
 
+    /* Auto Chooser */
+    SendableChooser<Command> s_Chooser = new SendableChooser<>();
+
     /** The container for the robot. Contains subsystems, OI devices, and commands. */
     public RobotContainer() {
         s_Swerve.setDefaultCommand(
@@ -57,6 +63,14 @@ public class RobotContainer {
         s_Intake.setDefaultCommand(new RunCommand(() -> s_Intake.noMovie(), s_Intake));
 
         s_Pivot.setDefaultCommand(new RunCommand(() -> s_Pivot.noPivot(), s_Pivot));
+
+        s_Chooser.setDefaultOption("Do Nothing", null);
+        s_Chooser.addOption("Mobility", new Mobility(s_Swerve));
+        s_Chooser.addOption("Mid Shot", new MidShot(s_Intake, s_Swerve));
+        s_Chooser.addOption("Mid Shot + Mobilty", new MidPlusMobility(s_Intake, s_Pivot, s_Swerve));
+        s_Chooser.addOption("DEMO", new exampleAuto(s_Swerve));
+
+        SmartDashboard.putData(s_Chooser);
 
         // Configure the button bindings
         configureButtonBindings();
@@ -77,6 +91,8 @@ public class RobotContainer {
         purple.whileTrue(new RunCommand(() -> s_Intake.blinkPurple(), s_Intake));
         pivotUp.whileTrue(new RunCommand(() -> s_Pivot.pivotUp(), s_Pivot));
         pivotDown.whileTrue(new RunCommand(() -> s_Pivot.pivotDown(), s_Pivot));
+
+        SmartDashboard.putNumber("Intake Position", s_Pivot.getPosition());
     }
 
     /**
@@ -86,6 +102,6 @@ public class RobotContainer {
      */
     public Command getAutonomousCommand() {
         // An ExampleCommand will run in autonomous
-        return new HighShot(s_Intake, s_Swerve);
+        return s_Chooser.getSelected();
     }
 }

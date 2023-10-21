@@ -18,8 +18,10 @@ public class Pivot extends SubsystemBase {
   private AbsoluteEncoder pivotEncoder;
 
   private final double PIVOT_SPEED = 0.15;
+  private final double INTAKE_SETPOINT = 0;
+  private final double HOME_SETPOINT = 0;
 
-  private PIDController pivotController = new PIDController(0, 0, 0);
+  private PIDController pivotController = new PIDController(0.1, 0, 0);
 
   /** Creates a new Pivot. */
   public Pivot() {
@@ -34,9 +36,14 @@ public class Pivot extends SubsystemBase {
   public void pivotDown() { pivotMotor.set(-PIVOT_SPEED); }
   public void noPivot() { pivotMotor.set(0); }
 
+  public void pivotToIntake() { pivotMotor.set(pivotController.calculate(INTAKE_SETPOINT)); }
+  public void pivotToHome() { pivotMotor.set(pivotController.calculate(HOME_SETPOINT)); }
+
   public double getPosition() {
     return pivotEncoder.getPosition();
   }
+
+
 
   @Override
   public void periodic() {
