@@ -5,17 +5,17 @@
 package frc.robot.commands;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
-import frc.robot.subsystems.Intake;
+import frc.robot.subsystems.Pivot;
 
 public class PivotUp extends CommandBase {
 
-  private final Intake m_intake;
+  private final Pivot m_pivot;
 
   /** Creates a new PivotArm. */
-  public PivotUp(Intake intake) {
+  public PivotUp(Pivot pivot) {
     // Use addRequirements() here to declare subsystem dependencies.
-    this.m_intake = intake;
-    addRequirements(m_intake);
+    this.m_pivot = pivot;
+    addRequirements(m_pivot);
   }
 
   // Called when the command is initially scheduled.
@@ -25,13 +25,13 @@ public class PivotUp extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    m_intake.pivotUp();
+    m_pivot.pivotUp();
   }
 
   // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {
-    m_intake.noPivot();
+    m_pivot.noPivot();
   }
 
   // Returns true when the command should end.

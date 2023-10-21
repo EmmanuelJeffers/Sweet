@@ -3,7 +3,6 @@ package frc.robot;
 import edu.wpi.first.wpilibj.GenericHID;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.PS4Controller;
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.InstantCommand;
 import edu.wpi.first.wpilibj2.command.RunCommand;
@@ -34,10 +33,14 @@ public class RobotContainer {
     private final JoystickButton intake = new JoystickButton(driver, PS4Controller.Button.kCross.value);
     private final JoystickButton slowShot = new JoystickButton(driver, PS4Controller.Button.kSquare.value);
     private final JoystickButton fastShot = new JoystickButton(driver, PS4Controller.Button.kTriangle.value);
+    private final JoystickButton purple = new JoystickButton(driver, PS4Controller.Button.kTouchpad.value);
+    private final JoystickButton pivotUp = new JoystickButton(driver, PS4Controller.Button.kL1.value);
+    private final JoystickButton pivotDown = new JoystickButton(driver, PS4Controller.Button.kR1.value);
 
     /* Subsystems */
     private final Swerve s_Swerve = new Swerve();
     private final Intake s_Intake = new Intake();
+    private final Pivot s_Pivot = new Pivot();
 
     /** The container for the robot. Contains subsystems, OI devices, and commands. */
     public RobotContainer() {
@@ -53,6 +56,8 @@ public class RobotContainer {
 
         s_Intake.setDefaultCommand(new RunCommand(() -> s_Intake.noMovie(), s_Intake));
 
+        s_Pivot.setDefaultCommand(new RunCommand(() -> s_Pivot.noPivot(), s_Pivot));
+
         // Configure the button bindings
         configureButtonBindings();
     }
@@ -66,9 +71,12 @@ public class RobotContainer {
     private void configureButtonBindings() {
         /* Driver Buttons */
         zeroGyro.onTrue(new InstantCommand(() -> s_Swerve.zeroGyro()));
-        intake.onTrue(new RunCommand(() -> s_Intake.intake(), s_Intake));
-        slowShot.onTrue(new RunCommand(() -> s_Intake.slowtake(), s_Intake));
-        fastShot.onTrue(new RunCommand(() -> s_Intake.fasttake(), s_Intake));
+        intake.whileTrue(new RunCommand(() -> s_Intake.intake(), s_Intake));
+        slowShot.whileTrue(new RunCommand(() -> s_Intake.slowtake(), s_Intake));
+        fastShot.whileTrue(new RunCommand(() -> s_Intake.fasttake(), s_Intake));
+        purple.whileTrue(new RunCommand(() -> s_Intake.blinkPurple(), s_Intake));
+        pivotUp.whileTrue(new RunCommand(() -> s_Pivot.pivotUp(), s_Pivot));
+        pivotDown.whileTrue(new RunCommand(() -> s_Pivot.pivotDown(), s_Pivot));
     }
 
     /**
@@ -78,6 +86,6 @@ public class RobotContainer {
      */
     public Command getAutonomousCommand() {
         // An ExampleCommand will run in autonomous
-        return new exampleAuto(s_Swerve);
+        return new HighShot(s_Intake, s_Swerve);
     }
 }
