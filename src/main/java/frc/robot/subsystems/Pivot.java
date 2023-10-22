@@ -17,7 +17,7 @@ public class Pivot extends SubsystemBase {
   private CANSparkMax pivotMotor;
   private AbsoluteEncoder pivotEncoder;
 
-  private final double PIVOT_SPEED = 0.15;
+  private final double PIVOT_SPEED = 0.2;
   private final double INTAKE_SETPOINT = 0;
   private final double HOME_SETPOINT = 0;
 

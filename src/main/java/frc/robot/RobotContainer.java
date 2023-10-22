@@ -32,7 +32,7 @@ public class RobotContainer {
 
     /* Driver Buttons */
     private final JoystickButton zeroGyro = new JoystickButton(driver, PS4Controller.Button.kShare.value);
-    private final JoystickButton robotCentric = new JoystickButton(driver, PS4Controller.Button.kOptions.value);
+    //private final JoystickButton robotCentric = new JoystickButton(driver, PS4Controller.Button.kOptions.value);
     private final JoystickButton intake = new JoystickButton(driver, PS4Controller.Button.kCross.value);
     private final JoystickButton slowShot = new JoystickButton(driver, PS4Controller.Button.kSquare.value);
     private final JoystickButton fastShot = new JoystickButton(driver, PS4Controller.Button.kTriangle.value);
@@ -56,7 +56,7 @@ public class RobotContainer {
                 () -> -driver.getRawAxis(translationAxis), 
                 () -> -driver.getRawAxis(strafeAxis), 
                 () -> -driver.getRawAxis(rotationAxis), 
-                () -> true
+                () -> false
             )
         );
 

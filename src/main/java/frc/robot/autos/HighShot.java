@@ -4,7 +4,6 @@
 
 package frc.robot.autos;
 
-import edu.wpi.first.wpilibj2.command.RunCommand;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import frc.robot.commands.EjectCube;
 import frc.robot.subsystems.Intake;
