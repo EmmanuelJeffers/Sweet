@@ -146,9 +146,18 @@ public final class Constants {
                 kMaxAngularSpeedRadiansPerSecond, kMaxAngularSpeedRadiansPerSecondSquared);
     }
 
-    public static final class IntakeConstants {
-        public static final double pivotkP = 0;
-        public static final double pivotkI = 0;
-        public static final double pivotkD = 0;
+    public static final class Intake {
+        public static final class IntakeConstants {            
+            public static final class PivotConstants {
+                public static final double pivotkP = 0;
+                public static final double pivotkI = 0;
+                public static final double pivotkD = 0;
+            }
+
+            public static final class IntakeIDs {
+                public static final double intakeID = 3;
+                public static final double pivot = 4;
+            }
+        }
     }
 }

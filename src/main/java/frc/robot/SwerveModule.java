@@ -94,7 +94,7 @@ public class SwerveModule {
 
         // If the difference is greater than 90 deg or less than -90 deg the drive can be inverted so the total
         // movement of the module is less than 90 deg
-        if (difference >90 || difference < -90) {
+        if (difference > 90 || difference < -90) {
             // Only need to add 180 deg here because the target angle will be put back into the range [0, 2pi)
             steerAngle += 180;
         }

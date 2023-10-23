@@ -24,6 +24,7 @@ import frc.robot.subsystems.*;
 public class RobotContainer {
     /* Controllers */
     private final Joystick driver = new Joystick(0);
+    //private final Joystick operator = new Joystick(1);
 
     /* Drive Controls */
     private final int translationAxis = PS4Controller.Axis.kLeftY.value;
@@ -32,7 +33,6 @@ public class RobotContainer {
 
     /* Driver Buttons */
     private final JoystickButton zeroGyro = new JoystickButton(driver, PS4Controller.Button.kShare.value);
-    //private final JoystickButton robotCentric = new JoystickButton(driver, PS4Controller.Button.kOptions.value);
     private final JoystickButton intake = new JoystickButton(driver, PS4Controller.Button.kCross.value);
     private final JoystickButton slowShot = new JoystickButton(driver, PS4Controller.Button.kSquare.value);
     private final JoystickButton fastShot = new JoystickButton(driver, PS4Controller.Button.kTriangle.value);
@@ -67,6 +67,7 @@ public class RobotContainer {
         s_Chooser.setDefaultOption("Do Nothing", null);
         s_Chooser.addOption("Mobility", new Mobility(s_Swerve));
         s_Chooser.addOption("Mid Shot", new MidShot(s_Intake, s_Swerve));
+        s_Chooser.addOption("High Shot", new HighShot(s_Intake, s_Swerve));
         s_Chooser.addOption("Mid Shot + Mobilty", new MidPlusMobility(s_Intake, s_Pivot, s_Swerve));
         s_Chooser.addOption("DEMO", new exampleAuto(s_Swerve));
 
