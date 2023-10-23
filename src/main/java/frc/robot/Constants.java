@@ -144,6 +144,9 @@ public final class Constants {
         public static final TrapezoidProfile.Constraints kThetaControllerConstraints =
             new TrapezoidProfile.Constraints(
                 kMaxAngularSpeedRadiansPerSecond, kMaxAngularSpeedRadiansPerSecondSquared);
+
+        public static final double midIntakeSetpoint = 20;
+        public static final double highIntakeSetpoint = 40;
     }
 
     public static final class Intake {
@@ -155,8 +158,8 @@ public final class Constants {
             }
 
             public static final class IntakeIDs {
-                public static final double intakeID = 3;
-                public static final double pivot = 4;
+                public static final int intakeID = 4;
+                public static final int pivotID = 3;
             }
         }
     }

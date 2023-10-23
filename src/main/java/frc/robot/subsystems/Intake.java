@@ -10,6 +10,8 @@ import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.lib.util.LEDStrip;
+import frc.robot.Constants.AutoConstants;
+import frc.robot.Constants.Intake.IntakeConstants.IntakeIDs;
 
 public class Intake extends SubsystemBase {
 
@@ -23,7 +25,7 @@ public class Intake extends SubsystemBase {
 
   /** Creates a new Intake. */
   public Intake() {
-     intakeMotor = new CANSparkMax(4, MotorType.kBrushless);
+     intakeMotor = new CANSparkMax(IntakeIDs.intakeID, MotorType.kBrushless);
      leftLEDs = new LEDStrip(0, 100);
 
      intakeMotor.setIdleMode(IdleMode.kCoast);
@@ -41,7 +43,7 @@ public class Intake extends SubsystemBase {
     intakeMotor.set(FAST_SHOT); 
     leftLEDs.set(255, 0, 0);
   }
-  public void outtake(double value) { 
+  public void outake(double value) { 
     intakeMotor.set(value); 
     leftLEDs.set(255, 0, 0);
   }
@@ -51,6 +53,20 @@ public class Intake extends SubsystemBase {
   public void noMovie() {
     intakeMotor.set(0);
     leftLEDs.blink(0, 0, 0);
+  }
+
+  public boolean intakeAuoDone() {
+    if (intakeMotor.getEncoder().getPosition() == AutoConstants.midIntakeSetpoint) {
+      return true;
+    }
+    return false;
+  }
+
+  public boolean outakeAuoDone() {
+    if (intakeMotor.getEncoder().getPosition() == -AutoConstants.midIntakeSetpoint) {
+      return true;
+    }
+    return false;
   }
 
   public void blinkPurple() {

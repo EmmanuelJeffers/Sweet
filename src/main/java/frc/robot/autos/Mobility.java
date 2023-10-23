@@ -30,8 +30,8 @@ public class Mobility extends SequentialCommandGroup {
             TrajectoryGenerator.generateTrajectory(
                 // Start at the origin facing the +X direction
                 new Pose2d(0, 0, new Rotation2d(0)),
-                List.of(new Translation2d(1, 1), new Translation2d(2, -1)), // End 3 meters straight ahead of where we started, facing forward
-                new Pose2d(4, 0, new Rotation2d(0)),
+                List.of(new Translation2d(1, 0), new Translation2d(2, 0)),
+                new Pose2d(4, 0, new Rotation2d()),
                 config);
 
         var thetaController =

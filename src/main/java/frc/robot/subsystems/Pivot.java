@@ -11,6 +11,7 @@ import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 
 import edu.wpi.first.math.controller.PIDController;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
+import frc.robot.Constants.Intake.IntakeConstants.IntakeIDs;
 
 public class Pivot extends SubsystemBase {
 
@@ -26,7 +27,7 @@ public class Pivot extends SubsystemBase {
   /** Creates a new Pivot. */
   public Pivot() {
 
-    pivotMotor = new CANSparkMax(3, MotorType.kBrushless);
+    pivotMotor = new CANSparkMax(IntakeIDs.pivotID, MotorType.kBrushless);
     pivotEncoder = pivotMotor.getAbsoluteEncoder(com.revrobotics.SparkMaxAbsoluteEncoder.Type.kDutyCycle);
 
     pivotMotor.setIdleMode(IdleMode.kBrake);
