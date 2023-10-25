@@ -17,8 +17,9 @@ import edu.wpi.first.wpilibj2.command.SwerveControllerCommand;
 
 public class TestWeaver extends SequentialCommandGroup {
 
-    private final String trajectoryJSON = "D:\\Programming\\FRC\\2023\\Sweet\\PathWeaver\\pathweaver.json"; // for pc
-    //private final String trajectoryJSON = "D:\\Programming\\FRC\\2023\\Sweet\\PathWeaver\\pathweaver.json"; // for laptop
+    //private final String trajectoryJSON = "D:\\Programming\\FRC\\2023\\Sweet\\PathWeaver\\pathweaver.json"; // for pc
+    //private final String trajectoryJSON = "C:\\Users\\ejeff\\Documents\\Sweet\\PathWeaver\\pathweaver.json"; // for laptop
+    private final String trajectoryJSON = "C:\\Users\\ejeff\\Documents\\Sweet\\PathWeaver\\output\\Test.wpilib.json";
 
     Trajectory trajectory = new Trajectory();
 
@@ -46,7 +47,6 @@ public class TestWeaver extends SequentialCommandGroup {
                 thetaController,
                 s_Swerve::setModuleStates,
                 s_Swerve);
-
 
         addCommands(
             new InstantCommand(() -> s_Swerve.resetOdometry(trajectory.getInitialPose())),
