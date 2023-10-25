@@ -13,6 +13,7 @@ import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import frc.robot.autos.*;
 import frc.robot.autos.sequences.MidPlusMobility;
 import frc.robot.commands.*;
+import frc.robot.pathfinder.TestWeaver;
 import frc.robot.subsystems.*;
 
 /**
@@ -70,6 +71,7 @@ public class RobotContainer {
         s_Chooser.addOption("High Shot", new HighShot(s_Intake, s_Swerve));
         s_Chooser.addOption("Mid Shot + Mobilty", new MidPlusMobility(s_Intake, s_Pivot, s_Swerve));
         s_Chooser.addOption("DEMO", new exampleAuto(s_Swerve));
+        s_Chooser.addOption("Test Weaver", new TestWeaver(s_Swerve));
 
         SmartDashboard.putData(s_Chooser);
 
