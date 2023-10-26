@@ -10,7 +10,6 @@ import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.lib.util.LEDStrip;
-import frc.lib.util.LEDStrip.FancyLED;
 import frc.robot.Constants.AutoConstants;
 import frc.robot.Constants.Intake.IntakeConstants.IntakeIDs;
 
@@ -53,8 +52,8 @@ public class Intake extends SubsystemBase {
 
   public void noMovie() {
     intakeMotor.set(0);
-    //led.blink(0, 0, 0); // pink: 255, 105, 180 cooten candy blue: 160, 217, 239
-    led.setFancyDualLayer(FancyLED.KNIGHT_RIDER, 255, 105, 180, 160, 217, 239);
+    led.blink(0, 0, 0); // pink: 255, 105, 180 cooten candy blue: 160, 217, 239
+    //led.setFancyDualLayer(FancyLED.PULSE, 255, 105, 180, 160, 217, 239);
     
   }
 

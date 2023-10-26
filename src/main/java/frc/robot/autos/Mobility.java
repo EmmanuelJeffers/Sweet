@@ -25,7 +25,7 @@ public class Mobility extends SequentialCommandGroup {
                     Constants.AutoConstants.kMaxAccelerationMetersPerSecondSquared)
                 .setKinematics(Constants.Swerve.swerveKinematics);
 
-        config.setReversed(true);
+        //config.setReversed(true);
 
         // An example trajectory to follow.  All units in meters.
         Trajectory exampleTrajectory =

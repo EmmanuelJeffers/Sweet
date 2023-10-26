@@ -101,16 +101,14 @@ public class RobotContainer {
         intake.whileTrue(new IntakeCube(s_Intake));
         slowShot.whileTrue(new EjectCube(s_Intake, 0.3));
         fastShot.whileTrue(new EjectCube(s_Intake, 0.5));
-        pivotUp.whileTrue(new PivotUp(s_Pivot));
-        pivotDown.whileTrue(new PivotDown(s_Pivot));
+        //pivotUp.whileTrue(new PivotUp(s_Pivot));
+        //pivotDown.whileTrue(new PivotDown(s_Pivot));
 
         //Test commands
-        /*pivotDown.whileTrue(new RunCommand(() -> s_Pivot.pivotToIntake(), s_Pivot));
+        pivotDown.whileTrue(new RunCommand(() -> s_Pivot.pivotToIntake(), s_Pivot));
         pivotUp.whileTrue(new RunCommand(() -> s_Pivot.pivotHome(), s_Pivot));
-        intake.whileTrue(new CubePreset(s_Pivot, s_Intake));
-        slowShot.whileTrue(new MidPreset(s_Pivot, s_Intake));*/
-
-        SmartDashboard.putNumber("Intake Position", s_Pivot.getPosition());
+        //intake.whileTrue(new CubePreset(s_Pivot, s_Intake));
+        //slowShot.whileTrue(new MidPreset(s_Pivot, s_Intake));
     }
 
     /**
