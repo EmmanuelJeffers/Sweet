@@ -11,8 +11,10 @@ import edu.wpi.first.wpilibj2.command.RunCommand;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 
 import frc.robot.autos.*;
-import frc.robot.autos.sequences.MidPlusMobility;
+import frc.robot.autos.multi.MidPlusMobility;
 import frc.robot.commands.*;
+import frc.robot.commands.WomboCombo.CubePreset;
+import frc.robot.commands.WomboCombo.MidPreset;
 import frc.robot.pathfinder.TestWeaver;
 import frc.robot.subsystems.*;
 
@@ -88,12 +90,25 @@ public class RobotContainer {
     private void configureButtonBindings() {
         /* Driver Buttons */
         zeroGyro.onTrue(new InstantCommand(() -> s_Swerve.zeroGyro()));
-        intake.whileTrue(new RunCommand(() -> s_Intake.intake(), s_Intake));
+        /*intake.whileTrue(new RunCommand(() -> s_Intake.intake(), s_Intake));
         slowShot.whileTrue(new RunCommand(() -> s_Intake.slowtake(), s_Intake));
         fastShot.whileTrue(new RunCommand(() -> s_Intake.fasttake(), s_Intake));
-        purple.whileTrue(new RunCommand(() -> s_Intake.blinkPurple(), s_Intake));
         pivotUp.whileTrue(new RunCommand(() -> s_Pivot.pivotUp(), s_Pivot));
-        pivotDown.whileTrue(new RunCommand(() -> s_Pivot.pivotDown(), s_Pivot));
+        pivotDown.whileTrue(new RunCommand(() -> s_Pivot.pivotDown(), s_Pivot));*/
+        purple.whileTrue(new RunCommand(() -> s_Intake.blinkPurple(), s_Intake));
+
+        /* New Commands */
+        intake.whileTrue(new IntakeCube(s_Intake));
+        slowShot.whileTrue(new EjectCube(s_Intake, 0.3));
+        fastShot.whileTrue(new EjectCube(s_Intake, 0.5));
+        pivotUp.whileTrue(new PivotUp(s_Pivot));
+        pivotDown.whileTrue(new PivotDown(s_Pivot));
+
+        //Test commands
+        /*pivotDown.whileTrue(new RunCommand(() -> s_Pivot.pivotToIntake(), s_Pivot));
+        pivotUp.whileTrue(new RunCommand(() -> s_Pivot.pivotHome(), s_Pivot));
+        intake.whileTrue(new CubePreset(s_Pivot, s_Intake));
+        slowShot.whileTrue(new MidPreset(s_Pivot, s_Intake));*/
 
         SmartDashboard.putNumber("Intake Position", s_Pivot.getPosition());
     }

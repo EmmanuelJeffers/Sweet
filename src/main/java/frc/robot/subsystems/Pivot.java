@@ -38,7 +38,15 @@ public class Pivot extends SubsystemBase {
   public void noPivot() { pivotMotor.set(0); }
 
   public void pivotToIntake() { pivotMotor.set(pivotController.calculate(INTAKE_SETPOINT)); }
-  public void pivotToHome() { pivotMotor.set(pivotController.calculate(HOME_SETPOINT)); }
+  public void pivotHome() { pivotMotor.set(pivotController.calculate(HOME_SETPOINT)); }
+
+  public boolean isHome() {
+    if (pivotEncoder.getPosition() == HOME_SETPOINT) {
+      return true;
+    } else {
+      return false;
+    }
+  }
 
   public double getPosition() {
     return pivotEncoder.getPosition();
