@@ -17,23 +17,23 @@ import edu.wpi.first.wpilibj2.command.InstantCommand;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import edu.wpi.first.wpilibj2.command.SwerveControllerCommand;
 
-public class Mobility extends SequentialCommandGroup {
-    public Mobility(Swerve s_Swerve){
+public class ChargeStation extends SequentialCommandGroup {
+    public ChargeStation(Swerve s_Swerve){
         TrajectoryConfig config =
             new TrajectoryConfig(
                     Constants.AutoConstants.kMaxSpeedMetersPerSecond,
                     Constants.AutoConstants.kMaxAccelerationMetersPerSecondSquared)
                 .setKinematics(Constants.Swerve.swerveKinematics);
 
-        config.setReversed(true);
-
         // An example trajectory to follow.  All units in meters.
         Trajectory exampleTrajectory =
             TrajectoryGenerator.generateTrajectory(
                 // Start at the origin facing the +X direction
-                new Pose2d(0, 0, new Rotation2d(180)),
+                new Pose2d(0, 0, new Rotation2d(0)),
+                // Pass through these two interior waypoints, making an 's' curve path
                 List.of(new Translation2d(1, 0), new Translation2d(2, 0)),
-                new Pose2d(4, 0, new Rotation2d(0)),
+                // End 3 meters straight ahead of where we started, facing forward
+                new Pose2d(3.06, 0, new Rotation2d(0)),
                 config);
 
         var thetaController =

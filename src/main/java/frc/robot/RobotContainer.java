@@ -69,11 +69,12 @@ public class RobotContainer {
 
         s_Chooser.setDefaultOption("Do Nothing", null);
         s_Chooser.addOption("Mobility", new Mobility(s_Swerve));
-        s_Chooser.addOption("Mid Shot", new MidShot(s_Intake, s_Swerve));
-        s_Chooser.addOption("High Shot", new HighShot(s_Intake, s_Swerve));
+        s_Chooser.addOption("Mid Shot", new MidShot(s_Intake));
+        s_Chooser.addOption("High Shot", new HighShot(s_Intake));
         s_Chooser.addOption("Mid Shot + Mobilty", new MidPlusMobility(s_Intake, s_Pivot, s_Swerve));
         s_Chooser.addOption("DEMO", new exampleAuto(s_Swerve));
-        s_Chooser.addOption("Test Weaver", new TestWeaver(s_Swerve));
+        s_Chooser.addOption("Far Charge", new FarChargeStation(s_Swerve));
+        s_Chooser.addOption("Charge Station", new ChargeStation(s_Swerve));
 
         SmartDashboard.putData(s_Chooser);
 

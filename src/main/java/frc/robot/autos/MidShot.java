@@ -4,21 +4,42 @@
 
 package frc.robot.autos;
 
-import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
-import frc.robot.commands.EjectCube;
+import edu.wpi.first.wpilibj2.command.CommandBase;
+import edu.wpi.first.wpilibj2.command.WaitCommand;
 import frc.robot.subsystems.Intake;
-import frc.robot.subsystems.Swerve;
 
-// NOTE:  Consider using this command inline, rather than writing a subclass.  For more
-// information, see:
-// https://docs.wpilib.org/en/stable/docs/software/commandbased/convenience-features.html
-public class MidShot extends SequentialCommandGroup {
+public class MidShot extends CommandBase {
+
+  private final Intake intake;
+
   /** Creates a new MidShot. */
-  public MidShot(Intake intake, Swerve swerve) {
-    // Add your commands in the addCommands() call, e.g.
-    // addCommands(new FooCommand(), new BarCommand());
-    addCommands(
-      new EjectCube(intake, 0.3)
-    );
+  public MidShot(Intake intake) {
+    this.intake = intake;
+    // Use addRequirements() here to declare subsystem dependencies.
+    addRequirements(intake);
+  }
+
+  // Called when the command is initially scheduled.
+  @Override
+  public void initialize() {
+    intake.resetIntakeEncoder();
+  }
+
+  // Called every time the scheduler runs while the command is scheduled.
+  @Override
+  public void execute() {
+    intake.outake(0.3);
+  }
+
+  // Called once the command ends or is interrupted.
+  @Override
+  public void end(boolean interrupted) {
+    intake.notake();
+  }
+
+  // Returns true when the command should end.
+  @Override
+  public boolean isFinished() {
+    return intake.outakeAuoDone();
   }
 }

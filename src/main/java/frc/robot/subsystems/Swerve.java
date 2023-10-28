@@ -1,6 +1,7 @@
 package frc.robot.subsystems;
 
 import frc.robot.SwerveModule;
+import frc.robot.Constants.Swerve.Mod0;
 import frc.robot.Constants;
 
 import edu.wpi.first.math.kinematics.ChassisSpeeds;
@@ -123,5 +124,6 @@ public class Swerve extends SubsystemBase {
         }
 
         SmartDashboard.putString("Heading", getYaw().toString());
+        SmartDashboard.putString("Pose", getPose().toString());
     }
 }

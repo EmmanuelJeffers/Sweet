@@ -21,8 +21,7 @@ public class HighPlusMobility extends SequentialCommandGroup {
     // Add your commands in the addCommands() call, e.g.
     // addCommands(new FooCommand(), new BarCommand());
     addCommands(
-      new HighShot(intake, swerve),
-      new WaitCommand(1),
+      new HighShot(intake),
       new Mobility(swerve)
     );
   }

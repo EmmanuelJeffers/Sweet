@@ -5,7 +5,6 @@
 package frc.robot.autos.multi;
 
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
-import edu.wpi.first.wpilibj2.command.WaitCommand;
 import frc.robot.autos.MidShot;
 import frc.robot.autos.Mobility;
 import frc.robot.subsystems.Intake;
@@ -21,8 +20,7 @@ public class MidPlusMobility extends SequentialCommandGroup {
     // Add your commands in the addCommands() call, e.g.
     // addCommands(new FooCommand(), new BarCommand());
     addCommands(
-      new MidShot(intake, swerve),
-      new WaitCommand(1),
+      new MidShot(intake),
       new Mobility(swerve)
     );
   }

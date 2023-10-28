@@ -8,6 +8,7 @@ import com.revrobotics.CANSparkMax;
 import com.revrobotics.CANSparkMax.IdleMode;
 import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.lib.util.LEDStrip;
 import frc.robot.Constants.AutoConstants;
@@ -48,7 +49,7 @@ public class Intake extends SubsystemBase {
     led.set(255, 0, 0);
   }
 
-  public void noIntake() { intakeMotor.set(0); }
+  public void notake() { intakeMotor.set(0); }
 
   public void noMovie() {
     intakeMotor.set(0);
@@ -58,17 +59,21 @@ public class Intake extends SubsystemBase {
   }
 
   public boolean intakeAuoDone() {
-    if (intakeMotor.getEncoder().getPosition() == AutoConstants.midIntakeSetpoint) {
+    if (intakeMotor.getEncoder().getPosition() == -AutoConstants.midIntakeSetpoint) {
       return true;
     }
     return false;
   }
 
   public boolean outakeAuoDone() {
-    if (intakeMotor.getEncoder().getPosition() == -AutoConstants.midIntakeSetpoint) {
+    if (intakeMotor.getEncoder().getPosition() >= AutoConstants.midIntakeSetpoint) {
       return true;
     }
     return false;
+  }
+
+  public void resetIntakeEncoder() {
+    intakeMotor.getEncoder().setPosition(0);
   }
 
   public void blinkPurple() {
@@ -78,5 +83,6 @@ public class Intake extends SubsystemBase {
   @Override
   public void periodic() {
     // This method will be called once per scheduler run
+    SmartDashboard.putNumber("Intake Motor Pos", intakeMotor.getEncoder().getPosition());
   }
 }
