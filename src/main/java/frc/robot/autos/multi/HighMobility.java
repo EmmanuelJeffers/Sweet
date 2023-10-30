@@ -5,8 +5,9 @@
 package frc.robot.autos.multi;
 
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
-import frc.robot.autos.HighShot;
+import frc.robot.Constants.Intake.IntakeConstants;
 import frc.robot.autos.Mobility;
+import frc.robot.commands.EjectCube;
 import frc.robot.subsystems.Intake;
 import frc.robot.subsystems.Pivot;
 import frc.robot.subsystems.Swerve;
@@ -20,7 +21,7 @@ public class HighMobility extends SequentialCommandGroup {
     // Add your commands in the addCommands() call, e.g.
     // addCommands(new FooCommand(), new BarCommand());
     addCommands(
-      new HighShot(intake),
+      new EjectCube(intake, IntakeConstants.hightakeSpeed).until(intake::outakeAuoDone),
       new Mobility(swerve)
     );
   }

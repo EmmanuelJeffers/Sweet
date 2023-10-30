@@ -5,6 +5,7 @@
 package frc.robot.autos.multi;
 
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
+import frc.robot.Constants.Intake.IntakeConstants;
 import frc.robot.autos.Mobility;
 import frc.robot.commands.EjectCube;
 import frc.robot.subsystems.Intake;
@@ -21,7 +22,7 @@ public class MidMobility extends SequentialCommandGroup {
     // addCommands(new FooCommand(), new BarCommand());
     addCommands(
       //new MidShot(intake),
-      new EjectCube(intake, 0.3).until(intake::outakeAuoDone), //TODO: Test this shit!
+      new EjectCube(intake, IntakeConstants.midtakeSpeed).until(intake::outakeAuoDone),
       new Mobility(swerve)
     );
   }

@@ -16,8 +16,8 @@ public class LEDStrip extends SubsystemBase {
   long blinkRange, blinkMax, durationMax;
 
   public LEDStrip(int port, int numberOfLeds) {
-    LED = new AddressableLED(port);//default is 6
-    ledBuffer = new AddressableLEDBuffer(numberOfLeds);//default is 120
+    LED = new AddressableLED(port); //default is 6
+    ledBuffer = new AddressableLEDBuffer(numberOfLeds); //default is 120
     LED.setLength(ledBuffer.getLength());
 
     LED.setData(ledBuffer);
@@ -33,8 +33,8 @@ public class LEDStrip extends SubsystemBase {
   }
 
   public LEDStrip(int port, int numberOfLeds, int blinkRange, int blinkMax, int durationMax) {
-    LED = new AddressableLED(port);//default is 6
-    ledBuffer = new AddressableLEDBuffer(numberOfLeds);//default is 120
+    LED = new AddressableLED(port); //default is 6
+    ledBuffer = new AddressableLEDBuffer(numberOfLeds); //default is 120
     LED.setLength(ledBuffer.getLength());
 
     LED.setData(ledBuffer);

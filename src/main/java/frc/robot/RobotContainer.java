@@ -68,8 +68,8 @@ public class RobotContainer {
 
         s_Chooser.setDefaultOption("DON'T BLOODY MOVE!!!", null);
         s_Chooser.addOption("Mobility", new Mobility(s_Swerve));
-        s_Chooser.addOption("Mid Shot", new MidShot(s_Intake));
-        s_Chooser.addOption("High Shot", new HighShot(s_Intake));
+        s_Chooser.addOption("Mid Shot", new EjectCube(s_Intake, IntakeConstants.midtakeSpeed).until(s_Intake::outakeAuoDone));
+        s_Chooser.addOption("High Shot", new EjectCube(s_Intake, IntakeConstants.hightakeSpeed).until(s_Intake::outakeAuoDone));
         s_Chooser.addOption("Mid Shot + Mobilty", new MidMobility(s_Intake, s_Pivot, s_Swerve));
         s_Chooser.addOption("Far Charge", new FarChargeStation(s_Swerve));
         s_Chooser.addOption("Charge Station", new ChargeStation(s_Swerve));
@@ -89,18 +89,14 @@ public class RobotContainer {
     private void configureButtonBindings() {
         /* Driver Buttons */
         zeroGyro.onTrue(new InstantCommand(() -> s_Swerve.zeroGyro()));
-        /*pivotUp.whileTrue(new RunCommand(() -> s_Pivot.pivotUp(), s_Pivot));
-        pivotDown.whileTrue(new RunCommand(() -> s_Pivot.pivotDown(), s_Pivot));*/
         purple.whileTrue(new RunCommand(() -> s_Intake.blinkPurple(), s_Intake));
-
-        /* New Commands */
         intake.whileTrue(new IntakeCube(s_Intake));
         slowShot.whileTrue(new EjectCube(s_Intake, IntakeConstants.midtakeSpeed));
         fastShot.whileTrue(new EjectCube(s_Intake, IntakeConstants.hightakeSpeed));
         //pivotUp.whileTrue(new PivotUp(s_Pivot));
         //pivotDown.whileTrue(new PivotDown(s_Pivot));
 
-        //Test commands
+        /* Test Commands */
         pivotDown.whileTrue(new RunCommand(() -> s_Pivot.pivotToIntake(), s_Pivot));
         pivotUp.whileTrue(new RunCommand(() -> s_Pivot.pivotHome(), s_Pivot));
         //intake.whileTrue(new CubePreset(s_Pivot, s_Intake));
