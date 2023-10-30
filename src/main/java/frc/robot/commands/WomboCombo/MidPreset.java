@@ -6,6 +6,7 @@ package frc.robot.commands.WomboCombo;
 
 import edu.wpi.first.wpilibj2.command.RunCommand;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
+import frc.robot.Constants.Intake.IntakeConstants;
 import frc.robot.commands.EjectCube;
 import frc.robot.subsystems.Intake;
 import frc.robot.subsystems.Pivot;
@@ -15,18 +16,13 @@ import frc.robot.subsystems.Pivot;
 // https://docs.wpilib.org/en/stable/docs/software/commandbased/convenience-features.html
 public class MidPreset extends SequentialCommandGroup {
 
-  private final Pivot pivot;
-  private final Intake intake;
-
   /** Creates a new LowPreset. */
   public MidPreset(Pivot pivot, Intake intake) {
-    this.pivot = pivot;
-    this.intake = intake;
     // Add your commands in the addCommands() call, e.g.
     // addCommands(new FooCommand(), new BarCommand());
     addCommands(
       new RunCommand(() -> pivot.pivotDown(), pivot),
-      new EjectCube(intake, 0.3)
+      new EjectCube(intake, IntakeConstants.midtakeSpeed)
     );
   }
 }

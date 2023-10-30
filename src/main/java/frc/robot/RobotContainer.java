@@ -9,13 +9,10 @@ import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.InstantCommand;
 import edu.wpi.first.wpilibj2.command.RunCommand;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
-
+import frc.robot.Constants.Intake.IntakeConstants;
 import frc.robot.autos.*;
-import frc.robot.autos.multi.MidPlusMobility;
+import frc.robot.autos.multi.MidMobility;
 import frc.robot.commands.*;
-import frc.robot.commands.WomboCombo.CubePreset;
-import frc.robot.commands.WomboCombo.MidPreset;
-import frc.robot.pathfinder.TestWeaver;
 import frc.robot.subsystems.*;
 
 /**
@@ -48,6 +45,8 @@ public class RobotContainer {
     private final Intake s_Intake = new Intake();
     private final Pivot s_Pivot = new Pivot();
 
+    //private final AprilTagger tag = new AprilTagger();
+
     /* Auto Chooser */
     SendableChooser<Command> s_Chooser = new SendableChooser<>();
 
@@ -67,12 +66,11 @@ public class RobotContainer {
 
         s_Pivot.setDefaultCommand(new RunCommand(() -> s_Pivot.noPivot(), s_Pivot));
 
-        s_Chooser.setDefaultOption("Do Nothing", null);
+        s_Chooser.setDefaultOption("DON'T BLOODY MOVE!!!", null);
         s_Chooser.addOption("Mobility", new Mobility(s_Swerve));
         s_Chooser.addOption("Mid Shot", new MidShot(s_Intake));
         s_Chooser.addOption("High Shot", new HighShot(s_Intake));
-        s_Chooser.addOption("Mid Shot + Mobilty", new MidPlusMobility(s_Intake, s_Pivot, s_Swerve));
-        s_Chooser.addOption("DEMO", new exampleAuto(s_Swerve));
+        s_Chooser.addOption("Mid Shot + Mobilty", new MidMobility(s_Intake, s_Pivot, s_Swerve));
         s_Chooser.addOption("Far Charge", new FarChargeStation(s_Swerve));
         s_Chooser.addOption("Charge Station", new ChargeStation(s_Swerve));
 
@@ -91,17 +89,14 @@ public class RobotContainer {
     private void configureButtonBindings() {
         /* Driver Buttons */
         zeroGyro.onTrue(new InstantCommand(() -> s_Swerve.zeroGyro()));
-        /*intake.whileTrue(new RunCommand(() -> s_Intake.intake(), s_Intake));
-        slowShot.whileTrue(new RunCommand(() -> s_Intake.slowtake(), s_Intake));
-        fastShot.whileTrue(new RunCommand(() -> s_Intake.fasttake(), s_Intake));
-        pivotUp.whileTrue(new RunCommand(() -> s_Pivot.pivotUp(), s_Pivot));
+        /*pivotUp.whileTrue(new RunCommand(() -> s_Pivot.pivotUp(), s_Pivot));
         pivotDown.whileTrue(new RunCommand(() -> s_Pivot.pivotDown(), s_Pivot));*/
         purple.whileTrue(new RunCommand(() -> s_Intake.blinkPurple(), s_Intake));
 
         /* New Commands */
         intake.whileTrue(new IntakeCube(s_Intake));
-        slowShot.whileTrue(new EjectCube(s_Intake, 0.3));
-        fastShot.whileTrue(new EjectCube(s_Intake, 0.5));
+        slowShot.whileTrue(new EjectCube(s_Intake, IntakeConstants.midtakeSpeed));
+        fastShot.whileTrue(new EjectCube(s_Intake, IntakeConstants.hightakeSpeed));
         //pivotUp.whileTrue(new PivotUp(s_Pivot));
         //pivotDown.whileTrue(new PivotDown(s_Pivot));
 
@@ -110,6 +105,8 @@ public class RobotContainer {
         pivotUp.whileTrue(new RunCommand(() -> s_Pivot.pivotHome(), s_Pivot));
         //intake.whileTrue(new CubePreset(s_Pivot, s_Intake));
         //slowShot.whileTrue(new MidPreset(s_Pivot, s_Intake));
+
+        //tag.apriltagVisionThreadproc();
     }
 
     /**

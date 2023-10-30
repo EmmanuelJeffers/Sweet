@@ -147,10 +147,20 @@ public final class Constants {
 
         public static final double midIntakeSetpoint = 20;
         public static final double highIntakeSetpoint = 40;
+
+        public static final double unbalanceTitltThreashold = 0.0;
+
+        public static final double chargeStationXDistance = Units.inchesToMeters(97)                                ;
+        public static final double mobilityChargeDistance = Units.inchesToMeters(stickDeadband);
+        public static final double mobilityDistance = Units.inchesToMeters(stickDeadband);
     }
 
     public static final class Intake {
-        public static final class IntakeConstants {            
+        public static final class IntakeConstants { 
+            public static final double intakeSpeed = 0.3;
+            public static final double midtakeSpeed = 0.3;
+            public static final double hightakeSpeed = 0.5;
+            
             public static final class PivotConstants {
                 public static final double pivotkP = 0;
                 public static final double pivotkI = 0;

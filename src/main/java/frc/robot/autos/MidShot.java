@@ -5,7 +5,7 @@
 package frc.robot.autos;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
-import edu.wpi.first.wpilibj2.command.WaitCommand;
+import frc.robot.Constants.Intake.IntakeConstants;
 import frc.robot.subsystems.Intake;
 
 public class MidShot extends CommandBase {
@@ -28,7 +28,7 @@ public class MidShot extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    intake.outake(0.3);
+    intake.outake(IntakeConstants.midtakeSpeed);
   }
 
   // Called once the command ends or is interrupted.

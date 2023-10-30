@@ -1,7 +1,6 @@
 package frc.robot.subsystems;
 
 import frc.robot.SwerveModule;
-import frc.robot.Constants.Swerve.Mod0;
 import frc.robot.Constants;
 
 import edu.wpi.first.math.kinematics.ChassisSpeeds;
@@ -75,13 +74,9 @@ public class Swerve extends SubsystemBase {
         }
     }    
 
-    public Pose2d getPose() {
-        return swerveOdometry.getPoseMeters();
-    }
+    public Pose2d getPose() { return swerveOdometry.getPoseMeters(); }
 
-    public void resetOdometry(Pose2d pose) {
-        swerveOdometry.resetPosition(getYaw(), getModulePositions(), pose);
-    }
+    public void resetOdometry(Pose2d pose) { swerveOdometry.resetPosition(getYaw(), getModulePositions(), pose); }
 
     public SwerveModuleState[] getModuleStates(){
         SwerveModuleState[] states = new SwerveModuleState[4];
@@ -99,13 +94,13 @@ public class Swerve extends SubsystemBase {
         return positions;
     }
 
-    public void zeroGyro(){
-        gyro.setYaw(0);
-    }
+    public void zeroGyro(){ gyro.setYaw(0); }
 
-    public Rotation2d getYaw() {
-        return (Constants.Swerve.invertGyro) ? Rotation2d.fromDegrees(360 - gyro.getYaw()) : Rotation2d.fromDegrees(gyro.getYaw());
-    }
+    public Rotation2d getYaw() { return (Constants.Swerve.invertGyro) ? Rotation2d.fromDegrees(360 - gyro.getYaw()) : Rotation2d.fromDegrees(gyro.getYaw()); }
+
+    //TODO: figure out which is for tilt and change method namew
+    public double getPitch() { return gyro.getPitch(); }
+    public double getRoll() { return gyro.getRoll(); }
 
     public void resetModulesToAbsolute(){
         for(SwerveModule mod : mSwerveMods){
@@ -125,5 +120,7 @@ public class Swerve extends SubsystemBase {
 
         SmartDashboard.putString("Heading", getYaw().toString());
         SmartDashboard.putString("Pose", getPose().toString());
+        SmartDashboard.putNumber("Pitch", getPitch());
+        SmartDashboard.putNumber("Roll", getRoll());
     }
 }

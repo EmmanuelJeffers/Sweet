@@ -12,16 +12,12 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.lib.util.LEDStrip;
 import frc.robot.Constants.AutoConstants;
+import frc.robot.Constants.Intake.IntakeConstants;
 import frc.robot.Constants.Intake.IntakeConstants.IntakeIDs;
 
 public class Intake extends SubsystemBase {
 
-  private CANSparkMax intakeMotor;  
-
-  private final double INTAKE_SPEED = 0.3;
-  private final double SLOW_SHOT = 0.3;
-  private final double FAST_SHOT = 0.4;
-
+  private CANSparkMax intakeMotor;
   private LEDStrip led;
 
   /** Creates a new Intake. */
@@ -33,15 +29,15 @@ public class Intake extends SubsystemBase {
   }
 
   public void intake() { 
-    intakeMotor.set(-INTAKE_SPEED); 
+    intakeMotor.set(-IntakeConstants.intakeSpeed); 
     led.set(0, 255, 0);
   }
   public void slowtake() { 
-    intakeMotor.set(SLOW_SHOT); 
+    intakeMotor.set(IntakeConstants.midtakeSpeed); 
     led.set(255, 0, 0);
   }
   public void fasttake() { 
-    intakeMotor.set(FAST_SHOT); 
+    intakeMotor.set(IntakeConstants.hightakeSpeed); 
     led.set(255, 0, 0);
   }
   public void outake(double value) { 

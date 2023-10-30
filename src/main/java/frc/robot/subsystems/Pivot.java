@@ -22,7 +22,7 @@ public class Pivot extends SubsystemBase {
   private final double PIVOT_SPEED = 0.2;
   private final double INTAKE_SETPOINT = 0.6;
   private final double HOME_SETPOINT = 0.99;
-  private final double offset = 0.0106969;
+  //private final double offset = 0.0106969;
 
   private PIDController pivotController = new PIDController(0.2, 0, 0);
 

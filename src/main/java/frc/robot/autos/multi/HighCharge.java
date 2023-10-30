@@ -5,8 +5,8 @@
 package frc.robot.autos.multi;
 
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
+import frc.robot.autos.ChargeStation;
 import frc.robot.autos.MidShot;
-import frc.robot.autos.Mobility;
 import frc.robot.subsystems.Intake;
 import frc.robot.subsystems.Pivot;
 import frc.robot.subsystems.Swerve;
@@ -14,14 +14,14 @@ import frc.robot.subsystems.Swerve;
 // NOTE:  Consider using this command inline, rather than writing a subclass.  For more
 // information, see:
 // https://docs.wpilib.org/en/stable/docs/software/commandbased/convenience-features.html
-public class MidPlusMobility extends SequentialCommandGroup {
+public class HighCharge extends SequentialCommandGroup {
   /** Creates a new MidPlusMobility. */
-  public MidPlusMobility(Intake intake, Pivot pivot, Swerve swerve) {
+  public HighCharge(Intake intake, Pivot pivot, Swerve swerve) {
     // Add your commands in the addCommands() call, e.g.
     // addCommands(new FooCommand(), new BarCommand());
     addCommands(
       new MidShot(intake),
-      new Mobility(swerve)
+      new ChargeStation(swerve)
     );
   }
 }
