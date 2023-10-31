@@ -7,12 +7,12 @@ package frc.robot.commands;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.subsystems.Pivot;
 
-public class PivotUp extends CommandBase {
+public class GoHome extends CommandBase {
 
   private final Pivot m_pivot;
 
   /** Creates a new PivotArm. */
-  public PivotUp(Pivot pivot) {
+  public GoHome(Pivot pivot) {
     // Use addRequirements() here to declare subsystem dependencies.
     this.m_pivot = pivot;
     addRequirements(m_pivot);
@@ -25,7 +25,7 @@ public class PivotUp extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    m_pivot.pivotUp();
+    m_pivot.pivotHome();
   }
 
   // Called once the command ends or is interrupted.
@@ -37,6 +37,6 @@ public class PivotUp extends CommandBase {
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    return false;
+    return m_pivot.isHome();
   }
 }

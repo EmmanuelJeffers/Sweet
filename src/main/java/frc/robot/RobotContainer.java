@@ -64,7 +64,8 @@ public class RobotContainer {
 
         s_Intake.setDefaultCommand(new RunCommand(() -> s_Intake.noMovie(), s_Intake));
 
-        s_Pivot.setDefaultCommand(new RunCommand(() -> s_Pivot.noPivot(), s_Pivot));
+        //s_Pivot.setDefaultCommand(new RunCommand(() -> s_Pivot.noPivot(), s_Pivot));
+        s_Pivot.setDefaultCommand(new GoHome(s_Pivot));
 
         s_Chooser.setDefaultOption("DON'T BLOODY MOVE!!!", null);
         s_Chooser.addOption("Mobility", new Mobility(s_Swerve));
@@ -93,12 +94,10 @@ public class RobotContainer {
         intake.whileTrue(new IntakeCube(s_Intake));
         slowShot.whileTrue(new EjectCube(s_Intake, IntakeConstants.midtakeSpeed));
         fastShot.whileTrue(new EjectCube(s_Intake, IntakeConstants.hightakeSpeed));
-        //pivotUp.whileTrue(new PivotUp(s_Pivot));
-        //pivotDown.whileTrue(new PivotDown(s_Pivot));
 
         /* Test Commands */
-        pivotDown.whileTrue(new RunCommand(() -> s_Pivot.pivotToIntake(), s_Pivot));
-        pivotUp.whileTrue(new RunCommand(() -> s_Pivot.pivotHome(), s_Pivot));
+        pivotDown.whileTrue(new GoIntake(s_Pivot));
+        //pivotUp.whileTrue(new GoHome(s_Pivot));
         //intake.whileTrue(new CubePreset(s_Pivot, s_Intake));
         //slowShot.whileTrue(new MidPreset(s_Pivot, s_Intake));
 

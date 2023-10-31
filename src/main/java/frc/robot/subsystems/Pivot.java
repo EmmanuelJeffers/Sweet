@@ -4,6 +4,8 @@
 
 package frc.robot.subsystems;
 
+import java.text.DecimalFormat;
+
 import com.revrobotics.AbsoluteEncoder;
 import com.revrobotics.CANSparkMax;
 import com.revrobotics.CANSparkMax.IdleMode;
@@ -20,11 +22,12 @@ public class Pivot extends SubsystemBase {
   private CANSparkMax pivotMotor;
   private AbsoluteEncoder pivotEncoder;
   private DigitalInput limitSwitch;
+  private DecimalFormat df1 = new DecimalFormat("0.##");
 
   private final double PIVOT_SPEED = 0.2;
-  private final double INTAKE_SETPOINT = 0.6;
-  private final double HOME_SETPOINT = 0.99;
-  //private final double offset = 0.0106969;
+  private final double INTAKE_SETPOINT = 0.57;
+  private final double HOME_SETPOINT = 0.965;
+  private final double offset = 0.0106969;
 
   private PIDController pivotController = new PIDController(1.5, 0, 0);
 
@@ -36,6 +39,7 @@ public class Pivot extends SubsystemBase {
     limitSwitch = new DigitalInput(0);
 
     pivotMotor.setIdleMode(IdleMode.kBrake);
+    pivotEncoder.setZeroOffset(offset);
   }
 
   public void pivotUp() { pivotMotor.set(PIVOT_SPEED); }
@@ -67,7 +71,7 @@ public class Pivot extends SubsystemBase {
   }
 
   public double getPosition() {
-    return pivotEncoder.getPosition();
+    return Double.valueOf(df1.format(pivotEncoder.getPosition()));
   }
 
 

@@ -32,14 +32,7 @@ public class Intake extends SubsystemBase {
     intakeMotor.set(-IntakeConstants.intakeSpeed); 
     led.set(0, 255, 0);
   }
-  public void slowtake() { 
-    intakeMotor.set(IntakeConstants.midtakeSpeed); 
-    led.set(255, 0, 0);
-  }
-  public void fasttake() { 
-    intakeMotor.set(IntakeConstants.hightakeSpeed); 
-    led.set(255, 0, 0);
-  }
+  
   public void outake(double value) { 
     intakeMotor.set(value); 
     led.set(255, 0, 0);
