@@ -1,3 +1,22 @@
 Files placed in this directory will be deployed to the RoboRIO into the
 'deploy' directory in the home folder. Use the 'Filesystem.getDeployDirectory' wpilib function
 to get a proper path relative to the deploy directory.
+
+Future Controller Mapping:
+    Drive:
+        Left Y Axis: Forward/Backward
+        Left X Axis: Left/Right
+        Right X Axis: Turn
+        Options: Reset Gyro
+    Intake:
+        Left Bumper: Auto Intake
+        Cross: Hybrid Shot
+        Square: Mid Shot
+        Triangle: High Shot
+        Circle: Intake
+        D-Pad Up: Manual Pivot Down
+        D-Pad Down: Manual Pivot Up
+    Charge Station:
+        Lock Wheels: Left || Right Trigger
+    Other:
+        Touchpad: Purple Lights

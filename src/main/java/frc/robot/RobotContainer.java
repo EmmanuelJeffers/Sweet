@@ -31,7 +31,7 @@ public class RobotContainer {
     private final int strafeAxis = PS4Controller.Axis.kLeftX.value;
     private final int rotationAxis = PS4Controller.Axis.kRightX.value;
 
-    /* Driver Buttons */
+    /* Driver Buttons */ // TODO: Update button layout for Brunswick
     private final JoystickButton zeroGyro = new JoystickButton(driver, PS4Controller.Button.kShare.value);
     private final JoystickButton intake = new JoystickButton(driver, PS4Controller.Button.kCross.value);
     private final JoystickButton slowShot = new JoystickButton(driver, PS4Controller.Button.kSquare.value);
@@ -62,16 +62,15 @@ public class RobotContainer {
             )
         );
 
-        s_Intake.setDefaultCommand(new RunCommand(() -> s_Intake.noMovie(), s_Intake));
+        s_Intake.setDefaultCommand(new RunCommand(() -> s_Intake.notake(), s_Intake));
 
-        //s_Pivot.setDefaultCommand(new RunCommand(() -> s_Pivot.noPivot(), s_Pivot));
         s_Pivot.setDefaultCommand(new GoHome(s_Pivot));
 
         s_Chooser.setDefaultOption("DON'T BLOODY MOVE!!!", null);
         s_Chooser.addOption("Mobility", new Mobility(s_Swerve));
         s_Chooser.addOption("Mid Shot", new EjectCube(s_Intake, IntakeConstants.midtakeSpeed).until(s_Intake::outakeAuoDone));
         s_Chooser.addOption("High Shot", new EjectCube(s_Intake, IntakeConstants.hightakeSpeed).until(s_Intake::outakeAuoDone));
-        s_Chooser.addOption("Mid Shot + Mobilty", new MidMobility(s_Intake, s_Pivot, s_Swerve));
+        s_Chooser.addOption("Mid Shot + Mobilty", new EjectCube(s_Intake, IntakeConstants.midtakeSpeed).until(s_Intake::outakeAuoDone).andThen(new Mobility(s_Swerve)));
         s_Chooser.addOption("Far Charge", new FarChargeStation(s_Swerve));
         s_Chooser.addOption("Charge Station", new ChargeStation(s_Swerve));
 
@@ -94,13 +93,10 @@ public class RobotContainer {
         intake.whileTrue(new IntakeCube(s_Intake));
         slowShot.whileTrue(new EjectCube(s_Intake, IntakeConstants.midtakeSpeed));
         fastShot.whileTrue(new EjectCube(s_Intake, IntakeConstants.hightakeSpeed));
+        pivotDown.whileTrue(new GoIntake(s_Pivot).andThen(new IntakeCube(s_Intake)));
 
         /* Test Commands */
-        pivotDown.whileTrue(new GoIntake(s_Pivot));
-        //pivotUp.whileTrue(new GoHome(s_Pivot));
-        //intake.whileTrue(new CubePreset(s_Pivot, s_Intake));
-        //slowShot.whileTrue(new MidPreset(s_Pivot, s_Intake));
-
+        pivotUp.whileTrue(new RunCommand(()-> s_Swerve.lockWheels()));
         //tag.apriltagVisionThreadproc();
     }
 

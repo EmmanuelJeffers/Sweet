@@ -108,6 +108,19 @@ public class Swerve extends SubsystemBase {
         }
     }
 
+    //TODO: Test this out
+    public void lockWheels() {
+        SwerveModule[] mods = new SwerveModule[4];
+        for(SwerveModule mod : mSwerveMods) {
+            if(mod.moduleNumber == 0 || mod.moduleNumber == 4) {
+                mods[mod.moduleNumber].setDesiredState(new SwerveModuleState(0, Rotation2d.fromDegrees(45)), false);
+            }
+            if(mod.moduleNumber == 1 || mod.moduleNumber == 2) {
+                mods[mod.moduleNumber].setDesiredState(new SwerveModuleState(0, Rotation2d.fromDegrees(-45)), false);
+            }
+        }
+    }
+
     @Override
     public void periodic(){
         swerveOdometry.update(getYaw(), getModulePositions());  

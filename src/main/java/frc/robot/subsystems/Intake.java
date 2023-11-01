@@ -38,9 +38,7 @@ public class Intake extends SubsystemBase {
     led.set(255, 0, 0);
   }
 
-  public void notake() { intakeMotor.set(0); }
-
-  public void noMovie() {
+  public void notake() {
     intakeMotor.set(0);
     led.blink(0, 0, 0); // pink: 255, 105, 180 cooten candy blue: 160, 217, 239
     //led.setFancyDualLayer(FancyLED.PULSE, 255, 105, 180, 160, 217, 239);

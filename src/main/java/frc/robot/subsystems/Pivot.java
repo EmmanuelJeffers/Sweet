@@ -16,6 +16,7 @@ import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants.Intake.IntakeConstants.IntakeIDs;
+import frc.robot.Constants.Intake.IntakeConstants.PivotConstants;
 
 public class Pivot extends SubsystemBase {
 
@@ -24,12 +25,7 @@ public class Pivot extends SubsystemBase {
   private DigitalInput limitSwitch;
   private DecimalFormat df1 = new DecimalFormat("0.##");
 
-  private final double PIVOT_SPEED = 0.2;
-  private final double INTAKE_SETPOINT = 0.57;
-  private final double HOME_SETPOINT = 0.965;
-  private final double offset = 0.0106969;
-
-  private PIDController pivotController = new PIDController(1.5, 0, 0);
+  private PIDController pivotController = new PIDController(PivotConstants.pivotKP, PivotConstants.pivotKI, PivotConstants.pivotkKD);
 
   /** Creates a new Pivot. */
   public Pivot() {
@@ -39,21 +35,21 @@ public class Pivot extends SubsystemBase {
     limitSwitch = new DigitalInput(0);
 
     pivotMotor.setIdleMode(IdleMode.kBrake);
-    pivotEncoder.setZeroOffset(offset);
+    pivotEncoder.setZeroOffset(PivotConstants.pivotOffset);
   }
 
-  public void pivotUp() { pivotMotor.set(PIVOT_SPEED); }
-  public void pivotDown() { pivotMotor.set(-PIVOT_SPEED); }
+  public void pivotUp() { pivotMotor.set(PivotConstants.pivotSpeed); }
+  public void pivotDown() { pivotMotor.set(-PivotConstants.pivotSpeed); }
   public void noPivot() { pivotMotor.set(0); }
 
   public void pivotToIntake() { 
-    pivotMotor.set(pivotController.calculate(pivotEncoder.getPosition(),INTAKE_SETPOINT)); 
+    pivotMotor.set(pivotController.calculate(pivotEncoder.getPosition(), PivotConstants.intakeSetpoint)); 
   }
 
-  public void pivotHome() { pivotMotor.set(pivotController.calculate(pivotEncoder.getPosition(), HOME_SETPOINT)); }
+  public void pivotHome() { pivotMotor.set(pivotController.calculate(pivotEncoder.getPosition(), PivotConstants.homeSetpoint)); }
 
   public boolean isHome() {
-    if (pivotEncoder.getPosition() >= HOME_SETPOINT) {
+    if (pivotEncoder.getPosition() >= PivotConstants.homeSetpoint) {
       return true;
     } else {
       return false;
@@ -63,7 +59,7 @@ public class Pivot extends SubsystemBase {
   public boolean getLimit() { return limitSwitch.get(); }
 
   public boolean atIntakeSetpoint() {
-    if (pivotEncoder.getPosition() <= INTAKE_SETPOINT) {
+    if (pivotEncoder.getPosition() <= PivotConstants.intakeSetpoint) {
       return true;
     } else {
       return false;
