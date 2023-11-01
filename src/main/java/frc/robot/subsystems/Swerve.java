@@ -98,9 +98,7 @@ public class Swerve extends SubsystemBase {
 
     public Rotation2d getYaw() { return (Constants.Swerve.invertGyro) ? Rotation2d.fromDegrees(360 - gyro.getYaw()) : Rotation2d.fromDegrees(gyro.getYaw()); }
 
-    //TODO: figure out which is for tilt and change method namew
     public double getPitch() { return gyro.getPitch(); }
-    public double getRoll() { return gyro.getRoll(); }
 
     public void resetModulesToAbsolute(){
         for(SwerveModule mod : mSwerveMods){
@@ -108,17 +106,12 @@ public class Swerve extends SubsystemBase {
         }
     }
 
-    //TODO: Test this out
     public void lockWheels() {
-        SwerveModule[] mods = new SwerveModule[4];
-        for(SwerveModule mod : mSwerveMods) {
-            if(mod.moduleNumber == 0 || mod.moduleNumber == 4) {
-                mods[mod.moduleNumber].setDesiredState(new SwerveModuleState(0, Rotation2d.fromDegrees(45)), false);
-            }
-            if(mod.moduleNumber == 1 || mod.moduleNumber == 2) {
-                mods[mod.moduleNumber].setDesiredState(new SwerveModuleState(0, Rotation2d.fromDegrees(-45)), false);
-            }
-        }
+
+        mSwerveMods[0].setDesiredState(new SwerveModuleState(0.1, Rotation2d.fromDegrees(45)), true);
+        mSwerveMods[1].setDesiredState(new SwerveModuleState(0.1, Rotation2d.fromDegrees(315)), true);
+        mSwerveMods[2].setDesiredState(new SwerveModuleState(0.1, Rotation2d.fromDegrees(315)), true);
+        mSwerveMods[3].setDesiredState(new SwerveModuleState(0.1, Rotation2d.fromDegrees(45)), true);
     }
 
     @Override
@@ -134,6 +127,5 @@ public class Swerve extends SubsystemBase {
         SmartDashboard.putString("Heading", getYaw().toString());
         SmartDashboard.putString("Pose", getPose().toString());
         SmartDashboard.putNumber("Pitch", getPitch());
-        SmartDashboard.putNumber("Roll", getRoll());
     }
 }

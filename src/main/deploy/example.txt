@@ -3,20 +3,20 @@ Files placed in this directory will be deployed to the RoboRIO into the
 to get a proper path relative to the deploy directory.
 
 Future Controller Mapping:
-    Drive:
+    Drivetrain:
         Left Y Axis: Forward/Backward
         Left X Axis: Left/Right
         Right X Axis: Turn
-        Options: Reset Gyro
+        Share: Reset Gyro
     Intake:
-        Left Bumper: Auto Intake
+        Left Bumper: Intake
+        Right Bumper: Auto Intake
         Cross: Hybrid Shot
         Square: Mid Shot
         Triangle: High Shot
         Circle: Intake
         D-Pad Up: Manual Pivot Down
         D-Pad Down: Manual Pivot Up
-    Charge Station:
-        Lock Wheels: Left || Right Trigger
     Other:
         Touchpad: Purple Lights
+        Options: Lock Wheels

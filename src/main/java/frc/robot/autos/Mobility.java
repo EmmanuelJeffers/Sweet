@@ -33,7 +33,7 @@ public class Mobility extends SequentialCommandGroup {
                 // Start at the origin facing the +X direction
                 new Pose2d(0, 0, new Rotation2d(180)),
                 List.of(new Translation2d(1, 0), new Translation2d(2, 0)),
-                new Pose2d(4, 0, new Rotation2d(0)),
+                new Pose2d(4, 0, new Rotation2d(180)),
                 config);
 
         var thetaController =
@@ -54,7 +54,6 @@ public class Mobility extends SequentialCommandGroup {
 
 
         addCommands(
-            new InstantCommand(() -> s_Swerve.resetOdometry(exampleTrajectory.getInitialPose())),
             swerveControllerCommand
         );
     }

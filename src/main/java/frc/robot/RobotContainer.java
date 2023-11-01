@@ -11,7 +11,6 @@ import edu.wpi.first.wpilibj2.command.RunCommand;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import frc.robot.Constants.Intake.IntakeConstants;
 import frc.robot.autos.*;
-import frc.robot.autos.multi.MidMobility;
 import frc.robot.commands.*;
 import frc.robot.subsystems.*;
 
@@ -33,12 +32,15 @@ public class RobotContainer {
 
     /* Driver Buttons */ // TODO: Update button layout for Brunswick
     private final JoystickButton zeroGyro = new JoystickButton(driver, PS4Controller.Button.kShare.value);
-    private final JoystickButton intake = new JoystickButton(driver, PS4Controller.Button.kCross.value);
+    private final JoystickButton lock = new JoystickButton(driver, PS4Controller.Button.kOptions.value);
+    private final JoystickButton autoIntake = new JoystickButton(driver, PS4Controller.Button.kR1.value);
+    private final JoystickButton hybrid = new JoystickButton(driver, PS4Controller.Button.kCross.value);
     private final JoystickButton slowShot = new JoystickButton(driver, PS4Controller.Button.kSquare.value);
     private final JoystickButton fastShot = new JoystickButton(driver, PS4Controller.Button.kTriangle.value);
     private final JoystickButton purple = new JoystickButton(driver, PS4Controller.Button.kTouchpad.value);
-    private final JoystickButton pivotUp = new JoystickButton(driver, PS4Controller.Button.kL1.value);
-    private final JoystickButton pivotDown = new JoystickButton(driver, PS4Controller.Button.kR1.value);
+    private final JoystickButton intake = new JoystickButton(driver, PS4Controller.Button.kL1.value);
+    //private final JoystickButton pivotUp = new JoystickButton(driver, PS4Controller.Button.kL1.value);
+    //private final JoystickButton pivotDown = new JoystickButton(driver, PS4Controller.Button.kL1.value);
 
     /* Subsystems */
     private final Swerve s_Swerve = new Swerve();
@@ -89,14 +91,16 @@ public class RobotContainer {
     private void configureButtonBindings() {
         /* Driver Buttons */
         zeroGyro.onTrue(new InstantCommand(() -> s_Swerve.zeroGyro()));
+        lock.whileTrue(new RunCommand(()-> s_Swerve.lockWheels()));
         purple.whileTrue(new RunCommand(() -> s_Intake.blinkPurple(), s_Intake));
         intake.whileTrue(new IntakeCube(s_Intake));
         slowShot.whileTrue(new EjectCube(s_Intake, IntakeConstants.midtakeSpeed));
-        fastShot.whileTrue(new EjectCube(s_Intake, IntakeConstants.hightakeSpeed));
-        pivotDown.whileTrue(new GoIntake(s_Pivot).andThen(new IntakeCube(s_Intake)));
-
+        //fastShot.whileTrue(new EjectCube(s_Intake, IntakeConstants.hightakeSpeed));
+        autoIntake.whileTrue(new GoIntake(s_Pivot).andThen(new IntakeCube(s_Intake)));
+ 
         /* Test Commands */
-        pivotUp.whileTrue(new RunCommand(()-> s_Swerve.lockWheels()));
+        hybrid.whileTrue(new GoHybrid(s_Pivot).andThen(new EjectCube(s_Intake, IntakeConstants.hightakeSpeed)));
+        fastShot.whileTrue(new GoMid(s_Pivot).andThen(new EjectCube(s_Intake, IntakeConstants.hightakeSpeed)));
         //tag.apriltagVisionThreadproc();
     }
 

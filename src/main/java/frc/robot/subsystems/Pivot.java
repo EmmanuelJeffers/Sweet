@@ -42,12 +42,12 @@ public class Pivot extends SubsystemBase {
   public void pivotDown() { pivotMotor.set(-PivotConstants.pivotSpeed); }
   public void noPivot() { pivotMotor.set(0); }
 
-  public void pivotToIntake() { 
-    pivotMotor.set(pivotController.calculate(pivotEncoder.getPosition(), PivotConstants.intakeSetpoint)); 
-  }
-
+  public void pivotToIntake() { pivotMotor.set(pivotController.calculate(pivotEncoder.getPosition(), PivotConstants.intakeSetpoint)); }
+  public void pivotToHybrid() { pivotMotor.set(pivotController.calculate(pivotEncoder.getPosition(), PivotConstants.hybridSetpoint)); }
+  public void pivotToMid() { pivotMotor.set(pivotController.calculate(pivotEncoder.getPosition(), PivotConstants.midSetpoint)); }
   public void pivotHome() { pivotMotor.set(pivotController.calculate(pivotEncoder.getPosition(), PivotConstants.homeSetpoint)); }
 
+  // TODO: find a better implementation for the boolean methods (switch?)
   public boolean isHome() {
     if (pivotEncoder.getPosition() >= PivotConstants.homeSetpoint) {
       return true;
@@ -56,10 +56,24 @@ public class Pivot extends SubsystemBase {
     }
   }
 
-  public boolean getLimit() { return limitSwitch.get(); }
-
   public boolean atIntakeSetpoint() {
     if (pivotEncoder.getPosition() <= PivotConstants.intakeSetpoint) {
+      return true;
+    } else {
+      return false;
+    }
+  }
+
+  public boolean atHybridSetpoint() {
+    if (pivotEncoder.getPosition() <= PivotConstants.hybridSetpoint) {
+      return true;
+    } else {
+      return false;
+    }
+  }
+
+  public boolean atMidSetpoint() {
+    if (pivotEncoder.getPosition() <= PivotConstants.midSetpoint && pivotEncoder.getPosition() > PivotConstants.homeSetpoint) {
       return true;
     } else {
       return false;
@@ -70,6 +84,8 @@ public class Pivot extends SubsystemBase {
     return Double.valueOf(df1.format(pivotEncoder.getPosition()));
   }
 
+  public boolean getLimit() { return limitSwitch.get(); }
+
 
 
   @Override
@@ -77,6 +93,7 @@ public class Pivot extends SubsystemBase {
     // This method will be called once per scheduler run
     SmartDashboard.putNumber("Intake Position", getPosition());
     SmartDashboard.putBoolean("Home?", isHome());
-    SmartDashboard.putBoolean("Intake Position?", atIntakeSetpoint());
+    SmartDashboard.putBoolean("Intake Setpoint?", atIntakeSetpoint());
+    SmartDashboard.putBoolean("Hybrid Setpoint?", atHybridSetpoint());
   }
 }
