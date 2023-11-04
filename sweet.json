@@ -245,21 +245,6 @@
               "Colors/Color when false": "#8B0000FF"
             }
           },
-          "6,2": {
-            "size": [
-              1,
-              1
-            ],
-            "content": {
-              "_type": "Boolean Box",
-              "_source0": "network_table:///SmartDashboard/Intake Position?",
-              "_title": "Intake Position?",
-              "_glyph": 148,
-              "_showGlyph": false,
-              "Colors/Color when true": "#7CFC00FF",
-              "Colors/Color when false": "#8B0000FF"
-            }
-          },
           "12,2": {
             "size": [
               1,
@@ -305,7 +290,7 @@
               "Visuals/Orientation": "VERTICAL"
             }
           },
-          "0,0": {
+          "6,2": {
             "size": [
               1,
               1

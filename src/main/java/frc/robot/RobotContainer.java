@@ -66,7 +66,8 @@ public class RobotContainer {
 
         s_Intake.setDefaultCommand(new RunCommand(() -> s_Intake.notake(), s_Intake));
 
-        s_Pivot.setDefaultCommand(new GoHome(s_Pivot));
+        //s_Pivot.setDefaultCommand(new GoHome(s_Pivot));
+        s_Pivot.setDefaultCommand(new RunCommand(() -> s_Pivot.noPivot(), s_Pivot));
 
         s_Chooser.setDefaultOption("DON'T BLOODY MOVE!!!", null);
         s_Chooser.addOption("Mobility", new Mobility(s_Swerve));
