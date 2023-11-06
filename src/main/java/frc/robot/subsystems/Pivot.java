@@ -80,6 +80,23 @@ public class Pivot extends SubsystemBase {
     }
   }
 
+  public void atSetpoint() {
+    // TODO: figure this out
+    /*switch() {
+      case pivotEncoder.getPosition() >= PivotConstants.homeSetpoint:
+        return true;
+        break;
+      case pivotEncoder.getPosition() <= PivotConstants.intakeSetpoint:
+        return true;
+        break;
+      case pivotEncoder.getPosition() <= PivotConstants.hybridSetpoint:
+        return true;
+        break;
+      default:
+        return false;
+    }*/
+  }
+
   public double getPosition() {
     return Double.valueOf(df1.format(pivotEncoder.getPosition()));
   }
@@ -95,5 +112,9 @@ public class Pivot extends SubsystemBase {
     SmartDashboard.putBoolean("Home?", isHome());
     SmartDashboard.putBoolean("Intake Setpoint?", atIntakeSetpoint());
     SmartDashboard.putBoolean("Hybrid Setpoint?", atHybridSetpoint());
+  }
+
+  public enum Setpoints {
+    HOME, INTAKE, HYBRID, MID, HIGH;
   }
 }
