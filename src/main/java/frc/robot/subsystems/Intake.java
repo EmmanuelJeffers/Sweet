@@ -4,10 +4,11 @@
 
 package frc.robot.subsystems;
 
+import com.fasterxml.jackson.core.io.OutputDecorator;
 import com.revrobotics.CANSparkMax;
-import com.revrobotics.CANSparkMax.IdleMode;
 import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 
+import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.lib.util.LEDStrip;
@@ -15,61 +16,55 @@ import frc.robot.Constants.AutoConstants;
 import frc.robot.Constants.Intake.IntakeConstants;
 import frc.robot.Constants.Intake.IntakeConstants.IntakeIDs;
 
-public class Intake extends SubsystemBase {
+public class Intake extends SubsystemBase{
+    private CANSparkMax intakeMotor;
+    private LEDStrip led;
+    private Joystick joy;
+    public Intake(){
+        intakeMotor = new CANSparkMax(IntakeIDs.intakeID, MotorType.kBrushed);
+        led = new LEDStrip(0, 100);
+        joy = new Joystick(1);
+    }
+    public void intake() { 
+        intakeMotor.set(-IntakeConstants.intakeSpeed); 
+        led.set(255,192,200);
+      }
+      public void outake() { 
+        intakeMotor.set(IntakeConstants.outtakeSpeed); 
+        led.set(100, 100, 100);
+      }
 
-  private CANSparkMax intakeMotor;
-  private LEDStrip led;
-
-  /** Creates a new Intake. */
-  public Intake() {
-     intakeMotor = new CANSparkMax(IntakeIDs.intakeID, MotorType.kBrushless);
-     led = new LEDStrip(0, 100);
-
-     intakeMotor.setIdleMode(IdleMode.kCoast);
-  }
-
-  public void intake() { 
-    intakeMotor.set(-IntakeConstants.intakeSpeed); 
-    led.set(0, 255, 0);
-  }
-  
-  public void outake(double value) { 
-    intakeMotor.set(value); 
-    led.set(255, 0, 0);
-  }
-
-  public void notake() {
-    intakeMotor.set(0);
-    led.blink(0, 0, 0); // pink: 255, 105, 180 cooten candy blue: 160, 217, 239
-    //led.setFancyDualLayer(FancyLED.PULSE, 255, 105, 180, 160, 217, 239);
+      public boolean intakeAuoDone() {
+        if (intakeMotor.getEncoder().getPosition() == -AutoConstants.midIntakeSetpoint) {
+          return true;
+        }
+        return false;
+      }
     
-  }
+      public boolean outakeAuoDone() {
+        if (intakeMotor.getEncoder().getPosition() >= AutoConstants.midIntakeSetpoint) {
+          return true;
+        }
+        return false;
+      }
+    
+      public void resetIntakeEncoder() {
+        intakeMotor.getEncoder().setPosition(0);
+      }
 
-  public boolean intakeAuoDone() {
-    if (intakeMotor.getEncoder().getPosition() == -AutoConstants.midIntakeSetpoint) {
-      return true;
+      
+      if (joy.getButton(0)){
+        intake();
+      } else;
+      if (joy.getButton(3)){
+        outake();
+      } else;
+
+      @Override //wtf
+      public void periodic() {   //im not sure if these two are the once to override and why is it red
+        intake();
+        outake();
+        SmartDashboard.putBoolean(intakeAuoDone(), true); //wtf
+        SmartDashboard.putBoolean(outakeAuoDone(), true);
     }
-    return false;
-  }
-
-  public boolean outakeAuoDone() {
-    if (intakeMotor.getEncoder().getPosition() >= AutoConstants.midIntakeSetpoint) {
-      return true;
-    }
-    return false;
-  }
-
-  public void resetIntakeEncoder() {
-    intakeMotor.getEncoder().setPosition(0);
-  }
-
-  public void blinkPurple() {
-    led.blink(106, 13, 173);
-  }
-
-  @Override
-  public void periodic() {
-    // This method will be called once per scheduler run
-    SmartDashboard.putNumber("Intake Motor Pos", intakeMotor.getEncoder().getPosition());
-  }
 }

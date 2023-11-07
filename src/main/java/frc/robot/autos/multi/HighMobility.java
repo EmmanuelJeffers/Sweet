@@ -2,7 +2,7 @@
 // Open Source Software; you can modify and/or share it under the terms of
 // the WPILib BSD license file in the root directory of this project.
 
-package frc.robot.autos.multi;
+/*package frc.robot.autos.multi;
 
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import frc.robot.Constants.Intake.IntakeConstants;
@@ -17,7 +17,7 @@ import frc.robot.subsystems.Swerve;
 // https://docs.wpilib.org/en/stable/docs/software/commandbased/convenience-features.html
 public class HighMobility extends SequentialCommandGroup {
   /** Creates a new MidPlusMobility. */
-  public HighMobility(Intake intake, Pivot pivot, Swerve swerve) {
+  /*public HighMobility(Intake intake, Pivot pivot, Swerve swerve) {
     // Add your commands in the addCommands() call, e.g.
     // addCommands(new FooCommand(), new BarCommand());
     addCommands(
@@ -25,4 +25,4 @@ public class HighMobility extends SequentialCommandGroup {
       new Mobility(swerve)
     );
   }
-}
+} */
