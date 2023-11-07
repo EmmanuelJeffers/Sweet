@@ -23,7 +23,7 @@ public class Mobility extends SequentialCommandGroup {
             new TrajectoryConfig(
                     Constants.AutoConstants.kMaxSpeedMetersPerSecond,
                     Constants.AutoConstants.kMaxAccelerationMetersPerSecondSquared)
-                .setKinematics(Constants.Swerve.swerveKinematics);
+                .setKinematics(Constants.SwerveDrive.swerveKinematics);
 
         config.setReversed(true);
 
@@ -45,7 +45,7 @@ public class Mobility extends SequentialCommandGroup {
             new SwerveControllerCommand(
                 exampleTrajectory,
                 s_Swerve::getPose,
-                Constants.Swerve.swerveKinematics,
+                Constants.SwerveDrive.swerveKinematics,
                 new PIDController(Constants.AutoConstants.kPXController, 0, 0),
                 new PIDController(Constants.AutoConstants.kPYController, 0, 0),
                 thetaController,

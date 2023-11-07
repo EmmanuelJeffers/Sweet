@@ -41,7 +41,7 @@ public class TestWeaver extends SequentialCommandGroup {
             new SwerveControllerCommand(
                 trajectory,
                 s_Swerve::getPose,
-                Constants.Swerve.swerveKinematics,
+                Constants.SwerveDrive.swerveKinematics,
                 new PIDController(Constants.AutoConstants.kPXController, 0, 0),
                 new PIDController(Constants.AutoConstants.kPYController, 0, 0),
                 thetaController,

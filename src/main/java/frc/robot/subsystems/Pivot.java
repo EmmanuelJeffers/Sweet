@@ -35,7 +35,6 @@ public class Pivot extends SubsystemBase {
     limitSwitch = new DigitalInput(0);
 
     pivotMotor.setIdleMode(IdleMode.kBrake);
-    pivotEncoder.setZeroOffset(PivotConstants.pivotOffset);
   }
 
   public void pivotUp() { pivotMotor.set(PivotConstants.pivotSpeed); }

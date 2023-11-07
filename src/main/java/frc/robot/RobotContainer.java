@@ -96,12 +96,12 @@ public class RobotContainer {
         purple.whileTrue(new RunCommand(() -> s_Intake.blinkPurple(), s_Intake));
         intake.whileTrue(new IntakeCube(s_Intake));
         slowShot.whileTrue(new EjectCube(s_Intake, IntakeConstants.midtakeSpeed));
-        //fastShot.whileTrue(new EjectCube(s_Intake, IntakeConstants.hightakeSpeed));
+        fastShot.whileTrue(new EjectCube(s_Intake, IntakeConstants.hightakeSpeed));
         autoIntake.whileTrue(new GoIntake(s_Pivot).andThen(new IntakeCube(s_Intake)));
  
         /* Test Commands */
         hybrid.whileTrue(new GoHybrid(s_Pivot).andThen(new EjectCube(s_Intake, IntakeConstants.hightakeSpeed)));
-        fastShot.whileTrue(new GoMid(s_Pivot).andThen(new EjectCube(s_Intake, IntakeConstants.hightakeSpeed)));
+        //.whileTrue(new GoMid(s_Pivot).andThen(new EjectCube(s_Intake, IntakeConstants.hightakeSpeed)));
         //tag.apriltagVisionThreadproc();
     }
 
