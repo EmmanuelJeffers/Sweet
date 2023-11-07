@@ -25,8 +25,7 @@ public class ChargeStation extends SequentialCommandGroup {
                     Constants.AutoConstants.kMaxAccelerationMetersPerSecondSquared)
                 .setKinematics(Constants.SwerveDrive.swerveKinematics);
 
-        // An example trajectory to follow.  All units in meters.
-        Trajectory exampleTrajectory =
+        Trajectory trajectory =
             TrajectoryGenerator.generateTrajectory(
                 // Start at the origin facing the +X direction
                 new Pose2d(0, 0, new Rotation2d(0)),
@@ -43,7 +42,7 @@ public class ChargeStation extends SequentialCommandGroup {
 
         SwerveControllerCommand swerveControllerCommand =
             new SwerveControllerCommand(
-                exampleTrajectory,
+                trajectory,
                 s_Swerve::getPose,
                 Constants.SwerveDrive.swerveKinematics,
                 new PIDController(Constants.AutoConstants.kPXController, 0, 0),
@@ -54,7 +53,7 @@ public class ChargeStation extends SequentialCommandGroup {
 
 
         addCommands(
-            new InstantCommand(() -> s_Swerve.resetOdometry(exampleTrajectory.getInitialPose())),
+            new InstantCommand(() -> s_Swerve.resetOdometry(trajectory.getInitialPose())),
             swerveControllerCommand
         );
     }

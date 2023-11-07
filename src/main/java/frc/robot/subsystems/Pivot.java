@@ -4,8 +4,6 @@
 
 package frc.robot.subsystems;
 
-import java.text.DecimalFormat;
-
 import com.revrobotics.AbsoluteEncoder;
 import com.revrobotics.CANSparkMax;
 import com.revrobotics.CANSparkMax.IdleMode;
@@ -23,7 +21,6 @@ public class Pivot extends SubsystemBase {
   private CANSparkMax pivotMotor;
   private AbsoluteEncoder pivotEncoder;
   private DigitalInput limitSwitch;
-  private DecimalFormat df1 = new DecimalFormat("0.##");
 
   private PIDController pivotController = new PIDController(PivotConstants.pivotKP, PivotConstants.pivotKI, PivotConstants.pivotkKD);
 
@@ -71,33 +68,8 @@ public class Pivot extends SubsystemBase {
     }
   }
 
-  public boolean atMidSetpoint() {
-    if (pivotEncoder.getPosition() <= PivotConstants.midSetpoint && pivotEncoder.getPosition() > PivotConstants.homeSetpoint) {
-      return true;
-    } else {
-      return false;
-    }
-  }
-
-  public void atSetpoint() {
-    // TODO: figure this out
-    /*switch() {
-      case pivotEncoder.getPosition() >= PivotConstants.homeSetpoint:
-        return true;
-        break;
-      case pivotEncoder.getPosition() <= PivotConstants.intakeSetpoint:
-        return true;
-        break;
-      case pivotEncoder.getPosition() <= PivotConstants.hybridSetpoint:
-        return true;
-        break;
-      default:
-        return false;
-    }*/
-  }
-
   public double getPosition() {
-    return Double.valueOf(df1.format(pivotEncoder.getPosition()));
+    return pivotEncoder.getPosition();
   }
 
   public boolean getLimit() { return limitSwitch.get(); }
@@ -114,6 +86,6 @@ public class Pivot extends SubsystemBase {
   }
 
   public enum Setpoints {
-    HOME, INTAKE, HYBRID, MID, HIGH;
+    HOME, INTAKE, HYBRID, MID;
   }
 }

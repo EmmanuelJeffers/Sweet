@@ -25,15 +25,14 @@ public class Mobility extends SequentialCommandGroup {
                     Constants.AutoConstants.kMaxAccelerationMetersPerSecondSquared)
                 .setKinematics(Constants.SwerveDrive.swerveKinematics);
 
-        config.setReversed(true);
+        //config.setReversed(true);
 
-        // An example trajectory to follow.  All units in meters.
-        Trajectory exampleTrajectory =
+        Trajectory trajectory =
             TrajectoryGenerator.generateTrajectory(
                 // Start at the origin facing the +X direction
-                new Pose2d(0, 0, new Rotation2d(180)),
+                new Pose2d(0, 0, new Rotation2d(0)),
                 List.of(new Translation2d(1, 0), new Translation2d(2, 0)),
-                new Pose2d(4, 0, new Rotation2d(180)),
+                new Pose2d(4, 0, new Rotation2d(0)),
                 config);
 
         var thetaController =
@@ -43,7 +42,7 @@ public class Mobility extends SequentialCommandGroup {
 
         SwerveControllerCommand swerveControllerCommand =
             new SwerveControllerCommand(
-                exampleTrajectory,
+                trajectory,
                 s_Swerve::getPose,
                 Constants.SwerveDrive.swerveKinematics,
                 new PIDController(Constants.AutoConstants.kPXController, 0, 0),
@@ -54,6 +53,7 @@ public class Mobility extends SequentialCommandGroup {
 
 
         addCommands(
+            new InstantCommand(() -> s_Swerve.resetOdometry(trajectory.getInitialPose())),
             swerveControllerCommand
         );
     }
