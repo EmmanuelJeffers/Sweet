@@ -21,7 +21,7 @@ public class Intake extends SubsystemBase{
     private LEDStrip led;
     private Joystick joy;
     public Intake(){
-        intakeMotor = new CANSparkMax(IntakeIDs.intakeID, MotorType.kBrushed);
+        intakeMotor = new CANSparkMax(IntakeIDs.intakeID, MotorType.kBrushless);
         led = new LEDStrip(0, 100);
         joy = new Joystick(1);
     }
@@ -33,42 +33,13 @@ public class Intake extends SubsystemBase{
         intakeMotor.set(IntakeConstants.outtakeSpeed); 
         led.set(100, 100, 100);
       }
-
-      public boolean intakeAuoDone() {
-        if 
-        (
-            intakeMotor.getEncoder().getPosition() == -AutoConstants.midIntakeSetpoint
-            )
-     {
-          return true;
-        }
-//lol
-        return false; }
-    
-      public boolean outakeAuoDone() {
-        if (intakeMotor.getEncoder().getPosition() >= AutoConstants.midIntakeSetpoint) {
-          return true;
-        }
-        return false;
-      }
-    
-      public void resetIntakeEncoder() {
-        intakeMotor.getEncoder().setPosition(0);
-      }
-
-      
-      if (joy.getButton(0)){
-        intake();
-      } else;
-      if (joy.getButton(3)){
-        outake();
-      } else;
-
       @Override //wtf
-      public void periodic() {   //im not sure if these two are the once to override and why is it red
+      public void periodic() {  
+      if (joy.getRawButton(3)){
         intake();
+      } else;
+      if (joy.getRawButton(4)){
         outake();
-        SmartDashboard.putBoolean(intakeAuoDone(), true); //wtf
-        SmartDashboard.putBoolean(outakeAuoDone(), true);
-    }
+      } else;
+      }
 }

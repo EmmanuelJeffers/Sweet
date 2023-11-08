@@ -22,28 +22,21 @@ import frc.robot.subsystems.*;
 public class RobotContainer {
     /* Controllers */
     private final Joystick driver = new Joystick(0);
-    //private final Joystick operator = new Joystick(1);
 
     /* Drive Controls */
     private final int translationAxis = PS4Controller.Axis.kLeftY.value;
     private final int strafeAxis = PS4Controller.Axis.kLeftX.value;
     private final int rotationAxis = PS4Controller.Axis.kRightX.value;
 
-    /* Driver Buttons */ // TODO: Update button layout for Brunswick
+    /* Driver Buttons */
     private final JoystickButton zeroGyro = new JoystickButton(driver, PS4Controller.Button.kShare.value);
-    private final JoystickButton lock = new JoystickButton(driver, PS4Controller.Button.kOptions.value);
-    //private final JoystickButton pivotUp = new JoystickButton(driver, PS4Controller.Button.kL1.value);
-    //private final JoystickButton pivotDown = new JoystickButton(driver, PS4Controller.Button.kL1.value);
-
+    
+    private final JoystickButton pivotButUp = new JoystickButton(driver, PS4Controller.Button.kTriangle.value);
+    public final JoystickButton pivotButDown = new JoystickButton(driver, PS4Controller.Button.kCircle.value);
+    
     /* Subsystems */
     private final Swerve s_Swerve = new Swerve();
-    private final test s_Pivot = new test();
-
-    //private final AprilTagger tag = new AprilTagger();
-
-    /* Auto Chooser */
-    SendableChooser<Command> s_Chooser = new SendableChooser<>();
-
+    private final Pivot s_Pivot = new Pivot();
     /** The container for the robot. Contains subsystems, OI devices, and commands. */
     public RobotContainer() {
         s_Swerve.setDefaultCommand(
@@ -56,17 +49,16 @@ public class RobotContainer {
             )
         );
 
-        s_Pivot.setDefaultCommand(new GoHome(s_Pivot));
-
-        s_Chooser.setDefaultOption("DON'T BLOODY MOVE!!!", null);
-        s_Chooser.addOption("Mobility", new Mobility(s_Swerve));
-        s_Chooser.addOption("Far Charge", new FarChargeStation(s_Swerve));
-        s_Chooser.addOption("Charge Station", new ChargeStation(s_Swerve));
-
-        SmartDashboard.putData(s_Chooser);
-
         // Configure the button bindings
-        configureButtonBindings();
+       /*  configureButtonBindings();
+        s_Pivot.setDefaultCommand(
+            new TeleopPivot(
+                s_Pivot,
+                () -> driver.getRawButton(kTriangle),
+                () -> -driver.getRawButton(kCircle),
+                () -> false
+            )
+        );*/
     }
 
     /**
@@ -77,12 +69,9 @@ public class RobotContainer {
      */
     private void configureButtonBindings() {
         /* Driver Buttons */
-        zeroGyro.onTrue(new InstantCommand(() -> s_Swerve.zeroGyro()));
-        lock.whileTrue(new RunCommand(()-> s_Swerve.lockWheels()));
-        //fastShot.whileTrue(new EjectCube(s_Intake, IntakeConstants.hightakeSpeed))
- 
-        /* Test Commands */
-        //tag.apriltagVisionThreadproc();
+        zeroGyro.onTrue(new InstantCommand(()       -> s_Swerve.zeroGyro()));
+        pivotButUp.onTrue(new InstantCommand(()     -> s_Pivot.pivotUp()));
+        pivotButDown.onTrue(new InstantCommand(()   -> s_Pivot.pivotDown()));
     }
 
     /**
@@ -92,6 +81,6 @@ public class RobotContainer {
      */
     public Command getAutonomousCommand() {
         // An ExampleCommand will run in autonomous
-        return s_Chooser.getSelected();
+        return null;
     }
 }
