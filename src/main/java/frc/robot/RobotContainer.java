@@ -37,7 +37,7 @@ public class RobotContainer {
 
     /* Subsystems */
     private final Swerve s_Swerve = new Swerve();
-    private final Pivot s_Pivot = new Pivot();
+    private final test s_Pivot = new test();
 
     //private final AprilTagger tag = new AprilTagger();
 

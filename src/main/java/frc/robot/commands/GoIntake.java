@@ -5,14 +5,14 @@
 package frc.robot.commands;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
-import frc.robot.subsystems.Pivot;
+import frc.robot.subsystems.test;
 
 public class GoIntake extends CommandBase {
 
-  private final Pivot m_pivot;
+  private final test m_pivot;
 
   /** Creates a new PivotArm. */
-  public GoIntake(Pivot pivot) {
+  public GoIntake(test pivot) {
     // Use addRequirements() here to declare subsystem dependencies.
     this.m_pivot = pivot;
     addRequirements(m_pivot);

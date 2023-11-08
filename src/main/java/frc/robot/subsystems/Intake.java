@@ -35,11 +35,15 @@ public class Intake extends SubsystemBase{
       }
 
       public boolean intakeAuoDone() {
-        if (intakeMotor.getEncoder().getPosition() == -AutoConstants.midIntakeSetpoint) {
+        if 
+        (
+            intakeMotor.getEncoder().getPosition() == -AutoConstants.midIntakeSetpoint
+            )
+     {
           return true;
         }
-        return false;
-      }
+//lol
+        return false; }
     
       public boolean outakeAuoDone() {
         if (intakeMotor.getEncoder().getPosition() >= AutoConstants.midIntakeSetpoint) {

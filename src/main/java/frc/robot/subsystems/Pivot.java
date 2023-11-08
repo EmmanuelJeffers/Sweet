@@ -4,8 +4,9 @@
 
 package frc.robot.subsystems;
 
-import java.text.DecimalFormat;
+import javax.naming.LimitExceededException;
 
+import com.ctre.phoenix.motorcontrol.LimitSwitchNormal;
 import com.revrobotics.AbsoluteEncoder;
 import com.revrobotics.CANSparkMax;
 import com.revrobotics.CANSparkMax.IdleMode;
@@ -13,87 +14,89 @@ import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 
 import edu.wpi.first.math.controller.PIDController;
 import edu.wpi.first.wpilibj.DigitalInput;
+import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
-import frc.robot.Constants.Intake.IntakeConstants.IntakeIDs;
 import frc.robot.Constants.Intake.IntakeConstants.PivotConstants;
 
-public class Pivot extends SubsystemBase {
+/** Add your docs here. */
+public  class Pivot extends SubsystemBase {
+    private CANSparkMax pivotMotor;
+    private AbsoluteEncoder pivotEncoder;
+    private DigitalInput limitSwitch;
+    private Joystick joy;
 
-  private CANSparkMax pivotMotor;
-  private AbsoluteEncoder pivotEncoder;
-  private DigitalInput limitSwitch;
-  private DecimalFormat df1 = new DecimalFormat("0.##");
-
-  private PIDController pivotController = new PIDController(PivotConstants.pivotKP, PivotConstants.pivotKI, PivotConstants.pivotkKD);
-
-  /** Creates a new Pivot. */
-  public Pivot() {
-
-    pivotMotor = new CANSparkMax(IntakeIDs.pivotID, MotorType.kBrushless);
-    pivotEncoder = pivotMotor.getAbsoluteEncoder(com.revrobotics.SparkMaxAbsoluteEncoder.Type.kDutyCycle);
-    limitSwitch = new DigitalInput(0);
-
-    pivotMotor.setIdleMode(IdleMode.kBrake);
-    pivotEncoder.setZeroOffset(PivotConstants.pivotOffset);
-  }
-
-  public void pivotUp() { pivotMotor.set(PivotConstants.pivotSpeed); }
-  public void pivotDown() { pivotMotor.set(-PivotConstants.pivotSpeed); }
-  public void noPivot() { pivotMotor.set(0); }
-
-  public void pivotToIntake() { pivotMotor.set(pivotController.calculate(pivotEncoder.getPosition(), PivotConstants.intakeSetpoint)); }
-  public void pivotToHybrid() { pivotMotor.set(pivotController.calculate(pivotEncoder.getPosition(), PivotConstants.hybridSetpoint)); }
-  public void pivotToMid() { pivotMotor.set(pivotController.calculate(pivotEncoder.getPosition(), PivotConstants.midSetpoint)); }
-  public void pivotHome() { pivotMotor.set(pivotController.calculate(pivotEncoder.getPosition(), PivotConstants.homeSetpoint)); }
-
-  // TODO: find a better implementation for the boolean methods (switch?)
-  public boolean isHome() {
-    if (pivotEncoder.getPosition() >= PivotConstants.homeSetpoint) {
-      return true;
-    } else {
-      return false;
+    private PIDController pivotController = new PIDController (PivotConstants.pivotKP, PivotConstants.pivotKI, PivotConstants.pivotkKD);
+    public Pivot(){
+         pivotMotor = new CANSparkMax(IntakeID.pivotID, MotorType.kBrushless);
+         pivotEncoder = pivotMotor.getAbsoluteEncoder(com.revrobotics.SparkMaxAbsoluteEncoder.Type.kDutyCycle);
+         limitSwitch = new DigitalInput(0);
+         pivotMotor.setIdleMode(IdleMode.kBrake);
+         pivotEncoder.setZeroOffset(PivotConstants.pivotOffset);
     }
-  }
-
-  public boolean atIntakeSetpoint() {
-    if (pivotEncoder.getPosition() <= PivotConstants.intakeSetpoint) {
-      return true;
-    } else {
-      return false;
+    public void pivotUp()
+        { pivotMotor.set(PivotConstants.pivotSpeed);
     }
-  }
-
-  public boolean atHybridSetpoint() {
-    if (pivotEncoder.getPosition() <= PivotConstants.hybridSetpoint) {
-      return true;
-    } else {
-      return false;
+    public void pivotDown(){
+        pivotMotor.set(-PivotConstants.pivotSpeed);
     }
-  }
-
-  public boolean atMidSetpoint() {
-    if (pivotEncoder.getPosition() <= PivotConstants.midSetpoint && pivotEncoder.getPosition() > PivotConstants.homeSetpoint) {
-      return true;
-    } else {
-      return false;
+    public void noPivot() {
+        pivotMotor.set(0);
     }
-  }
+    public void pivotToIntake(){
+        pivotMotor.set(pivotMotor.set(pivotController.calculate));
+    }
+    public void pivotToHybrid (){
+        pivotMotor.set(pivotMotor.set(pivotController.calculate(0)));
+    }
+    public void pivotToMid (){ 
+        pivotMotor.set (pivotMotor.set());
+    }
+    public void pivotToIntake() { pivotMotor.set(pivotController.calculate(pivotEncoder.getPosition(), PivotConstants.intakeSetpoint)); }
+    public void pivotToHybrid() { pivotMotor.set(pivotController.calculate(pivotEncoder.getPosition(), PivotConstants.hybridSetpoint)); }
+    public void pivotToMid() { pivotMotor.set(pivotController.calculate(pivotEncoder.getPosition(), PivotConstants.midSetpoint)); }
+    public void pivotHome() { pivotMotor.set(pivotController.calculate(pivotEncoder.getPosition(), PivotConstants.homeSetpoint)); }
 
-  public double getPosition() {
-    return Double.valueOf(df1.format(pivotEncoder.getPosition()));
-  }
+    public void pivotToHybrid(){
+        if (joy.getRawButton(2)){
+            pivotToHybrid();
+        }else;
+    } 
+    public void pivotToMid(){
+        if (joy.getRawButton(3)){
+            pivotToMid();
+        }else;
+    }
+    public void pivotHome(){
+        if (joy.getRawButton(4)){
+            pivotHome();
+        } else;
+    }
+    public void pivotToIntake(){
+        if (joy.getRawButton(5)){
+            pivotToIntake();
+        }else;
+    }
+    public double getPosition() {
+        return Double.valueOf(df1.format(pivotEncoder.getPosition()));
+      }
+    
+      public boolean getLimit() { return limitSwitch.get(); }
+    
+    
+    
+      @Override
+      public void periodic() {
+        SmartDashboard.putNumber("Intake Position", getPosition());
+        SmartDashboard.putBoolean("Home?", isHome());
+        SmartDashboard.putBoolean("Intake Setpoint?", atIntakeSetpoint());
+        SmartDashboard.putBoolean("Hybrid Setpoint?", atHybridSetpoint());
+      }
 
-  public boolean getLimit() { return limitSwitch.get(); }
 
 
+    /*
+     * PUT THE ENCODER VALUES AND POSITIONS
+     */// hi eman
 
-  @Override
-  public void periodic() {
-    // This method will be called once per scheduler run
-    SmartDashboard.putNumber("Intake Position", getPosition());
-    SmartDashboard.putBoolean("Home?", isHome());
-    SmartDashboard.putBoolean("Intake Setpoint?", atIntakeSetpoint());
-    SmartDashboard.putBoolean("Hybrid Setpoint?", atHybridSetpoint());
-  }
 }
