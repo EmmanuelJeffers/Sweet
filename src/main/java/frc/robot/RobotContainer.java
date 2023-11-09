@@ -98,9 +98,9 @@ public class RobotContainer {
         pivotUp.whileTrue(new RunCommand(() -> s_Pivot.pivotUp(), s_Pivot));
         pivotDown.whileTrue(new RunCommand(() -> s_Pivot.pivotDown(), s_Pivot));
         autoIntake.whileTrue(new GoIntake(s_Pivot).andThen(new IntakeCube(s_Intake)));
+        hybrid.whileTrue(new GoHybrid(s_Pivot).andThen(new EjectCube(s_Intake, IntakeConstants.intakeSpeed)));
  
         /* Test Commands */
-        hybrid.whileTrue(new GoHybrid(s_Pivot).andThen(new EjectCube(s_Intake, IntakeConstants.hightakeSpeed)));
         //tag.apriltagVisionThreadproc();
     }
 

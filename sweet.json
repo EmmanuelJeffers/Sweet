@@ -230,9 +230,9 @@
               "_showGlyph": false
             }
           },
-          "6,1": {
+          "5,1": {
             "size": [
-              1,
+              2,
               1
             ],
             "content": {
@@ -305,7 +305,7 @@
               "Colors/Color when false": "#8B0000FF"
             }
           },
-          "0,1": {
+          "5,2": {
             "size": [
               1,
               1

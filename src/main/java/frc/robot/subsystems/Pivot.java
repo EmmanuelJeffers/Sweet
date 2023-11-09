@@ -40,7 +40,6 @@ public class Pivot extends SubsystemBase {
 
   public void pivotToIntake() { pivotMotor.set(pivotController.calculate(pivotEncoder.getPosition(), PivotConstants.intakeSetpoint)); }
   public void pivotToHybrid() { pivotMotor.set(pivotController.calculate(pivotEncoder.getPosition(), PivotConstants.hybridSetpoint)); }
-  public void pivotToMid() { pivotMotor.set(pivotController.calculate(pivotEncoder.getPosition(), PivotConstants.midSetpoint)); }
   public void pivotHome() { pivotMotor.set(pivotController.calculate(pivotEncoder.getPosition(), PivotConstants.homeSetpoint)); }
 
   // TODO: find a better implementation for the boolean methods (switch?)
@@ -61,7 +60,7 @@ public class Pivot extends SubsystemBase {
   }
 
   public boolean atHybridSetpoint() {
-    if (pivotEncoder.getPosition() <= PivotConstants.hybridSetpoint) {
+    if (pivotEncoder.getPosition() <= PivotConstants.hybridSetpoint && pivotEncoder.getPosition() > PivotConstants.homeSetpoint) {
       return true;
     } else {
       return false;
