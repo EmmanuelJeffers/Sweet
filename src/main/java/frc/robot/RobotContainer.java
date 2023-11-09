@@ -35,12 +35,13 @@ public class RobotContainer {
     private final JoystickButton lock = new JoystickButton(driver, PS4Controller.Button.kOptions.value);
     private final JoystickButton autoIntake = new JoystickButton(driver, PS4Controller.Button.kR1.value);
     private final JoystickButton hybrid = new JoystickButton(driver, PS4Controller.Button.kCross.value);
-    private final JoystickButton slowShot = new JoystickButton(driver, PS4Controller.Button.kSquare.value);
+    private final JoystickButton mid = new JoystickButton(driver, PS4Controller.Button.kSquare.value);
     private final JoystickButton fastShot = new JoystickButton(driver, PS4Controller.Button.kTriangle.value);
     private final JoystickButton purple = new JoystickButton(driver, PS4Controller.Button.kTouchpad.value);
     private final JoystickButton intake = new JoystickButton(driver, PS4Controller.Button.kL1.value);
     private final JoystickButton pivotUp = new JoystickButton(driver, PS4Controller.Button.kL2.value);
     private final JoystickButton pivotDown = new JoystickButton(driver, PS4Controller.Button.kR2.value);
+    private final JoystickButton goHome = new JoystickButton(driver, PS4Controller.Button.kCircle.value);
 
     /* Subsystems */
     private final Swerve s_Swerve = new Swerve();
@@ -63,7 +64,7 @@ public class RobotContainer {
                 () -> false
             )
         );
-
+//racism
         s_Intake.setDefaultCommand(new RunCommand(() -> s_Intake.notake(), s_Intake));
 
         //s_Pivot.setDefaultCommand(new GoHome(s_Pivot));
@@ -93,15 +94,17 @@ public class RobotContainer {
         lock.whileTrue(new RunCommand(()-> s_Swerve.lockWheels()));
         purple.whileTrue(new RunCommand(() -> s_Intake.blinkPurple(), s_Intake));
         intake.whileTrue(new IntakeCube(s_Intake));
-        slowShot.whileTrue(new EjectCube(s_Intake, IntakeConstants.midtakeSpeed));
         fastShot.whileTrue(new EjectCube(s_Intake, IntakeConstants.hightakeSpeed));
         pivotUp.whileTrue(new RunCommand(() -> s_Pivot.pivotUp(), s_Pivot));
         pivotDown.whileTrue(new RunCommand(() -> s_Pivot.pivotDown(), s_Pivot));
         autoIntake.whileTrue(new GoIntake(s_Pivot).andThen(new IntakeCube(s_Intake)));
+        mid.whileTrue(new GoMid(s_Pivot).andThen(new EjectCube(s_Intake, IntakeConstants.intakeSpeed)));
         hybrid.whileTrue(new GoHybrid(s_Pivot).andThen(new EjectCube(s_Intake, IntakeConstants.intakeSpeed)));
+        goHome.whileTrue(new GoHome(s_Pivot));
  
         /* Test Commands */
         //tag.apriltagVisionThreadproc();
+        //racism
     }
 
     /**

@@ -32,6 +32,11 @@ public class Pivot extends SubsystemBase {
     limitSwitch = new DigitalInput(0);
 
     pivotMotor.setIdleMode(IdleMode.kBrake);
+    pivotEncoder.setZeroOffset(PivotConstants.pivotOffset);
+    pivotEncoder.setInverted(true);
+
+    pivotController.enableContinuousInput(0, 1);
+
   }
 
   public void pivotUp() { pivotMotor.set(PivotConstants.pivotSpeed); }
@@ -39,12 +44,13 @@ public class Pivot extends SubsystemBase {
   public void noPivot() { pivotMotor.set(0); }
 
   public void pivotToIntake() { pivotMotor.set(pivotController.calculate(pivotEncoder.getPosition(), PivotConstants.intakeSetpoint)); }
+  public void pivotToMid() { pivotMotor.set(pivotController.calculate(pivotEncoder.getPosition(), PivotConstants.midSetpoint)); }
   public void pivotToHybrid() { pivotMotor.set(pivotController.calculate(pivotEncoder.getPosition(), PivotConstants.hybridSetpoint)); }
   public void pivotHome() { pivotMotor.set(pivotController.calculate(pivotEncoder.getPosition(), PivotConstants.homeSetpoint)); }
 
   // TODO: find a better implementation for the boolean methods (switch?)
   public boolean isHome() {
-    if (pivotEncoder.getPosition() >= PivotConstants.homeSetpoint) {
+    if (pivotEncoder.getPosition() <= PivotConstants.homeSetpoint) {
       return true;
     } else {
       return false;
@@ -52,7 +58,7 @@ public class Pivot extends SubsystemBase {
   }
 
   public boolean atIntakeSetpoint() {
-    if (pivotEncoder.getPosition() <= PivotConstants.intakeSetpoint) {
+    if (pivotEncoder.getPosition() >= PivotConstants.intakeSetpoint && pivotEncoder.getPosition() < 0.5) {
       return true;
     } else {
       return false;
@@ -60,6 +66,14 @@ public class Pivot extends SubsystemBase {
   }
 
   public boolean atHybridSetpoint() {
+    if (pivotEncoder.getPosition() <= PivotConstants.hybridSetpoint && pivotEncoder.getPosition() > PivotConstants.midSetpoint) {
+      return true;
+    } else {
+      return false;
+    }
+  }
+
+  public boolean atMidSetpoint() {
     if (pivotEncoder.getPosition() <= PivotConstants.hybridSetpoint && pivotEncoder.getPosition() > PivotConstants.homeSetpoint) {
       return true;
     } else {

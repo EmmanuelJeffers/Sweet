@@ -162,15 +162,16 @@ public final class Constants {
             public static final double hightakeSpeed = 0.5;
             
             public static final class PivotConstants {
-                public static final double pivotKP = 0.5;
+                public static final double pivotKP = 1.5;
                 public static final double pivotKI = 0;
                 public static final double pivotkKD = 0;
 
                 public static final double pivotSpeed = 0.2;
-                public static final double homeSetpoint = 0.388;
-                public static final double intakeSetpoint = 0.0965;
-                public static final double hybridSetpoint = 0.6;
-                public static final double pivotOffset = 0.0106969;
+                public static final double homeSetpoint = 0.036;
+                public static final double intakeSetpoint = 0.46;
+                public static final double midSetpoint = 0.06;
+                public static final double hybridSetpoint = 0.4;
+                public static final double pivotOffset = 0.5883560;
             }
 
             public static final class IntakeIDs {
