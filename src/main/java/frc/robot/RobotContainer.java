@@ -3,13 +3,10 @@ package frc.robot;
 import edu.wpi.first.wpilibj.GenericHID;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.PS4Controller;
-import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.InstantCommand;
 import edu.wpi.first.wpilibj2.command.RunCommand;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
-import frc.robot.autos.*;
 import frc.robot.commands.*;
 import frc.robot.subsystems.*;
 
@@ -39,6 +36,8 @@ public class RobotContainer {
     private final Pivot s_Pivot = new Pivot();
     /** The container for the robot. Contains subsystems, OI devices, and commands. */
     public RobotContainer() {
+        configureButtonBindings();
+        s_Pivot.setDefaultCommand(new RunCommand(() -> s_Pivot.noPivot(), s_Pivot));
         s_Swerve.setDefaultCommand(
             new TeleopSwerve(
                 s_Swerve, 
@@ -46,20 +45,11 @@ public class RobotContainer {
                 () -> -driver.getRawAxis(strafeAxis), 
                 () -> -driver.getRawAxis(rotationAxis), 
                 () -> false
+                //racism
             )
         );
-
-        // Configure the button bindings
-       /*  configureButtonBindings();
-        s_Pivot.setDefaultCommand(
-            new TeleopPivot(
-                s_Pivot,
-                () -> driver.getRawButton(kTriangle),
-                () -> -driver.getRawButton(kCircle),
-                () -> false
-            )
-        );*/
     }
+
 
     /**
      * Use this method to define your button->command mappings. Buttons can be created by
@@ -69,9 +59,9 @@ public class RobotContainer {
      */
     private void configureButtonBindings() {
         /* Driver Buttons */
-        zeroGyro.onTrue(new InstantCommand(()       -> s_Swerve.zeroGyro()));
-        pivotButUp.onTrue(new InstantCommand(()     -> s_Pivot.pivotUp()));
-        pivotButDown.onTrue(new InstantCommand(()   -> s_Pivot.pivotDown()));
+        zeroGyro.onTrue(new InstantCommand(()       -> s_Swerve.zeroGyro())); //STOP TOUCHING THIS LINE OF CODE!! it is fine
+        pivotButUp.onTrue(new RunCommand(()     -> s_Pivot.pivotUp(),       s_Pivot));
+        pivotButDown.onTrue(new RunCommand(()   -> s_Pivot.pivotDown(),     s_Pivot));
     }
 
     /**

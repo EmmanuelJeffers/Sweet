@@ -4,15 +4,12 @@
 
 package frc.robot.subsystems;
 
-import com.fasterxml.jackson.core.io.OutputDecorator;
 import com.revrobotics.CANSparkMax;
 import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 
 import edu.wpi.first.wpilibj.Joystick;
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.lib.util.LEDStrip;
-import frc.robot.Constants.AutoConstants;
 import frc.robot.Constants.Intake.IntakeConstants;
 import frc.robot.Constants.Intake.IntakeConstants.IntakeIDs;
 
@@ -22,8 +19,8 @@ public class Intake extends SubsystemBase{
     private Joystick joy;
     public Intake(){
         intakeMotor = new CANSparkMax(IntakeIDs.intakeID, MotorType.kBrushless);
-        led = new LEDStrip(0, 100);
-        joy = new Joystick(1);
+        led = new LEDStrip(1, 100);
+        joy = new Joystick(0);
     }
     public void intake() { 
         intakeMotor.set(-IntakeConstants.intakeSpeed); 
