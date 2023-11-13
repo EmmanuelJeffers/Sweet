@@ -39,9 +39,9 @@ public class RobotContainer {
     private final JoystickButton fastShot = new JoystickButton(driver, PS4Controller.Button.kTriangle.value);
     private final JoystickButton purple = new JoystickButton(driver, PS4Controller.Button.kTouchpad.value);
     private final JoystickButton intake = new JoystickButton(driver, PS4Controller.Button.kL1.value);
-    private final JoystickButton pivotUp = new JoystickButton(driver, PS4Controller.Button.kL2.value);
-    private final JoystickButton pivotDown = new JoystickButton(driver, PS4Controller.Button.kR2.value);
-    private final JoystickButton goHome = new JoystickButton(driver, PS4Controller.Button.kCircle.value);
+    private final JoystickButton pivotUp = new JoystickButton(driver, PS4Controller.Button.kL3.value);
+    private final JoystickButton pivotDown = new JoystickButton(driver, PS4Controller.Button.kR3.value);
+    private final JoystickButton goHome = new JoystickButton(driver, PS4Controller.Button.kL2.value);
 
     /* Subsystems */
     private final Swerve s_Swerve = new Swerve();
@@ -72,7 +72,8 @@ public class RobotContainer {
 
         s_Chooser.setDefaultOption("DON'T BLOODY MOVE!!!", null);
         s_Chooser.addOption("Mobility", new Mobility(s_Swerve));
-        s_Chooser.addOption("Mid Shot", new EjectCube(s_Intake, IntakeConstants.midtakeSpeed).until(s_Intake::outakeAuoDone));
+        s_Chooser.addOption("Reverse! Reverse!", new ReverseMobility(s_Swerve));
+        s_Chooser.addOption("Mid Shot", new EjectCube(s_Intake, IntakeConstants.hightakeSpeed).until(s_Intake::outakeAuoDone));
         s_Chooser.addOption("Charge Station", new ChargeStation(s_Swerve));
         s_Chooser.addOption("Far Charge", new FarChargeStation(s_Swerve));
 
@@ -97,9 +98,9 @@ public class RobotContainer {
         fastShot.whileTrue(new EjectCube(s_Intake, IntakeConstants.hightakeSpeed));
         pivotUp.whileTrue(new RunCommand(() -> s_Pivot.pivotUp(), s_Pivot));
         pivotDown.whileTrue(new RunCommand(() -> s_Pivot.pivotDown(), s_Pivot));
-        autoIntake.whileTrue(new GoIntake(s_Pivot).andThen(new IntakeCube(s_Intake)));
+        autoIntake.whileTrue(new GoIntake(s_Pivot).alongWith(new IntakeCube(s_Intake)));
         mid.whileTrue(new GoMid(s_Pivot).andThen(new EjectCube(s_Intake, IntakeConstants.intakeSpeed)));
-        hybrid.whileTrue(new GoHybrid(s_Pivot).andThen(new EjectCube(s_Intake, IntakeConstants.intakeSpeed)));
+        hybrid.whileTrue(new GoHybrid(s_Pivot).andThen(new EjectCube(s_Intake, 0.15)));
         goHome.whileTrue(new GoHome(s_Pivot));
  
         /* Test Commands */

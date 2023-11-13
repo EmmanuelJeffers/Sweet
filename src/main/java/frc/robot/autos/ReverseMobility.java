@@ -17,22 +17,22 @@ import edu.wpi.first.wpilibj2.command.InstantCommand;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import edu.wpi.first.wpilibj2.command.SwerveControllerCommand;
 
-public class Mobility extends SequentialCommandGroup {
-    public Mobility(Swerve s_Swerve){
+public class ReverseMobility extends SequentialCommandGroup {
+    public ReverseMobility(Swerve s_Swerve){
         TrajectoryConfig config =
             new TrajectoryConfig(
                     Constants.AutoConstants.kMaxSpeedMetersPerSecond,
                     Constants.AutoConstants.kMaxAccelerationMetersPerSecondSquared)
                 .setKinematics(Constants.SwerveDrive.swerveKinematics);
 
-        //config.setReversed(true);
+        config.setReversed(true);
 
         Trajectory trajectory =
             TrajectoryGenerator.generateTrajectory(
                 // Start at the origin facing the +X direction
-                new Pose2d(0, 0, new Rotation2d(0)),
-                List.of(new Translation2d(2, 0), new Translation2d(4, 0)),
-                new Pose2d(5, 0, new Rotation2d(0)),
+                new Pose2d(0, 0, new Rotation2d(-180)),
+                List.of(new Translation2d(1, 0), new Translation2d(2, 0)),
+                new Pose2d(4, 0, new Rotation2d(-180)),
                 config);
 
         var thetaController =

@@ -35,6 +35,8 @@ public class Pivot extends SubsystemBase {
     pivotEncoder.setZeroOffset(PivotConstants.pivotOffset);
     pivotEncoder.setInverted(true);
 
+    pivotMotor.burnFlash();
+
     pivotController.enableContinuousInput(0, 1);
 
   }

@@ -86,7 +86,7 @@ public final class Constants {
 
         /* Neutral Modes */
         public static final NeutralMode angleNeutralMode = NeutralMode.Coast;
-        public static final NeutralMode driveNeutralMode = NeutralMode.Brake;
+        public static final NeutralMode driveNeutralMode = NeutralMode.Coast;
 
         /* Module Specific Constants */
         /* Front Left Module - Module 0 */
@@ -158,7 +158,7 @@ public final class Constants {
     public static final class Intake {
         public static final class IntakeConstants { 
             public static final double intakeSpeed = 0.3;
-            public static final double midtakeSpeed = 0.4;
+            public static final double midtakeSpeed = 0.45;
             public static final double hightakeSpeed = 0.5;
             
             public static final class PivotConstants {
@@ -168,7 +168,7 @@ public final class Constants {
 
                 public static final double pivotSpeed = 0.2;
                 public static final double homeSetpoint = 0.036;
-                public static final double intakeSetpoint = 0.46;
+                public static final double intakeSetpoint = 0.44;
                 public static final double midSetpoint = 0.06;
                 public static final double hybridSetpoint = 0.4;
                 public static final double pivotOffset = 0.5883560;
@@ -177,6 +177,7 @@ public final class Constants {
             public static final class IntakeIDs {
                 public static final int intakeID = 4;
                 public static final int pivotID = 3;
+                //racism
             }
         }
     }
