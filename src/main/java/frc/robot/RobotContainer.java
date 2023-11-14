@@ -30,14 +30,19 @@ public class RobotContainer {
     
     private final JoystickButton pivotButUp = new JoystickButton(driver, PS4Controller.Button.kTriangle.value);
     public final JoystickButton pivotButDown = new JoystickButton(driver, PS4Controller.Button.kCircle.value);
+    public final JoystickButton intakeButIn = new JoystickButton(driver, PS4Controller.Button.kR1.value);
+    public final JoystickButton intakButeOut = new JoystickButton(driver, PS4Controller.Button.kL1.value);
     
     /* Subsystems */
     private final Swerve s_Swerve = new Swerve();
     private final Pivot s_Pivot = new Pivot();
+    private final Intake s_Intake = new Intake();
     /** The container for the robot. Contains subsystems, OI devices, and commands. */
     public RobotContainer() {
         configureButtonBindings();
+
         s_Pivot.setDefaultCommand(new RunCommand(() -> s_Pivot.noPivot(), s_Pivot));
+        s_Intake.setDefaultCommand(new RunCommand(() -> s_Intake.noIntake(), s_Intake));
         s_Swerve.setDefaultCommand(
             new TeleopSwerve(
                 s_Swerve, 
@@ -45,23 +50,24 @@ public class RobotContainer {
                 () -> -driver.getRawAxis(strafeAxis), 
                 () -> -driver.getRawAxis(rotationAxis), 
                 () -> false
-                //racism
             )
         );
     }
 
 
     /**
-     * Use this method to define your button->command mappings. Buttons can be created by
+     * Use this method to define your button->command mappings. Buttons can be created by[]
      * instantiating a {@link GenericHID} or one of its subclasses ({@link
      * edu.wpi.first.wpilibj.Joystick} or {@link PS4Controller}), and then passing it to a {@link
      * edu.wpi.first.wpilibj2.command.button.JoystickButton}.
      */
     private void configureButtonBindings() {
         /* Driver Buttons */
-        zeroGyro.onTrue(new InstantCommand(()       -> s_Swerve.zeroGyro())); //STOP TOUCHING THIS LINE OF CODE!! it is fine
-        pivotButUp.onTrue(new RunCommand(()     -> s_Pivot.pivotUp(),       s_Pivot));
-        pivotButDown.onTrue(new RunCommand(()   -> s_Pivot.pivotDown(),     s_Pivot));
+        zeroGyro.onTrue(new InstantCommand(()   -> s_Swerve.zeroGyro()));
+        pivotButUp.whileTrue(new RunCommand(()     -> s_Pivot.pivotUp(),       s_Pivot));
+        pivotButDown.whileTrue(new RunCommand(()   -> s_Pivot.pivotDown(),     s_Pivot));
+        intakeButIn.whileTrue(new RunCommand(()    -> s_Intake.intake(),       s_Intake));
+        intakButeOut.whileTrue(new RunCommand(()   -> s_Intake.outake(),         s_Intake));
     }
 
     /**

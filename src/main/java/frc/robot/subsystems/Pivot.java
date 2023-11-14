@@ -20,9 +20,12 @@ public  class Pivot extends SubsystemBase {
          pivotMotor = new CANSparkMax(IntakeIDs.pivotID, MotorType.kBrushless);
          pivotMotor.setIdleMode(IdleMode.kBrake);
     }
-    public void pivotUp()
-        { pivotMotor.set(PivotConstants.pivotSpeed);
+
+
+    public void pivotUp(){ 
+        pivotMotor.set(PivotConstants.pivotSpeed);
     }
+
     public void pivotDown(){
         pivotMotor.set(-PivotConstants.pivotSpeed);
     }
