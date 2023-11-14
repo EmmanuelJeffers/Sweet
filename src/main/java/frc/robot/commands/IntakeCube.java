@@ -20,7 +20,9 @@ public class IntakeCube extends CommandBase {
 
   // Called when the command is initially scheduled.
   @Override
-  public void initialize() {}
+  public void initialize() {
+    m_intake.resetIntakeEncoder();
+  }
 
   // Called every time the schedumler runs while the command is scheduled.
   @Override

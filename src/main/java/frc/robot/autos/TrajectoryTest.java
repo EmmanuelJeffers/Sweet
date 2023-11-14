@@ -1,36 +1,39 @@
-package frc.robot.pathfinder;
+package frc.robot.autos;
 
 import frc.robot.Constants;
+import frc.robot.subsystems.Intake;
+import frc.robot.subsystems.Pivot;
 import frc.robot.subsystems.Swerve;
 
-import java.nio.file.Path;
+import java.util.List;
 
 import edu.wpi.first.math.controller.PIDController;
 import edu.wpi.first.math.controller.ProfiledPIDController;
+import edu.wpi.first.math.geometry.Pose2d;
+import edu.wpi.first.math.geometry.Rotation2d;
+import edu.wpi.first.math.geometry.Translation2d;
 import edu.wpi.first.math.trajectory.Trajectory;
-import edu.wpi.first.math.trajectory.TrajectoryUtil;
-import edu.wpi.first.wpilibj.DriverStation;
-import edu.wpi.first.wpilibj.Filesystem;
+import edu.wpi.first.math.trajectory.TrajectoryConfig;
+import edu.wpi.first.math.trajectory.TrajectoryGenerator;
 import edu.wpi.first.wpilibj2.command.InstantCommand;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import edu.wpi.first.wpilibj2.command.SwerveControllerCommand;
 
-public class TestWeaver extends SequentialCommandGroup {
+public class TrajectoryTest extends SequentialCommandGroup {
+    public TrajectoryTest(Swerve s_Swerve, Pivot pivot, Intake intake){
+        TrajectoryConfig config =
+            new TrajectoryConfig(
+                    Constants.AutoConstants.kMaxSpeedMetersPerSecond,
+                    Constants.AutoConstants.kMaxAccelerationMetersPerSecondSquared)
+                .setKinematics(Constants.SwerveDrive.swerveKinematics);
 
-    //private final String trajectoryJSON = "D:\\Programming\\FRC\\2023\\Sweet\\PathWeaver\\pathweaver.json"; // for pc
-    //private final String trajectoryJSON = "C:\\Users\\ejeff\\Documents\\Sweet\\PathWeaver\\pathweaver.json"; // for laptop
-    private final String trajectoryJSON = "C:\\Users\\ejeff\\Documents\\Sweet\\src\\main\\deploy\\PathWeaver\\output\\Test.wpilib.json";
-
-    Trajectory trajectory = new Trajectory();
-
-    public TestWeaver(Swerve s_Swerve){
-        
-        try {
-            Path trajectoryPath = Filesystem.getDeployDirectory().toPath().resolve(trajectoryJSON);
-            trajectory = TrajectoryUtil.fromPathweaverJson(trajectoryPath);
-        } catch (Exception e) {
-            DriverStation.reportError("Unable to open trajectory: " + trajectoryJSON, e.getStackTrace());
-        }
+        Trajectory trajectory =
+            TrajectoryGenerator.generateTrajectory(
+                // Start at the origin facing the +X direction
+                new Pose2d(0, 0, new Rotation2d(0)),
+                List.of(new Translation2d(0, 0), new Translation2d(0, 0)),
+                new Pose2d(0, 0, new Rotation2d(180)),
+                config);
 
         var thetaController =
             new ProfiledPIDController(
@@ -47,6 +50,7 @@ public class TestWeaver extends SequentialCommandGroup {
                 thetaController,
                 s_Swerve::setModuleStates,
                 s_Swerve);
+
 
         addCommands(
             new InstantCommand(() -> s_Swerve.resetOdometry(trajectory.getInitialPose())),

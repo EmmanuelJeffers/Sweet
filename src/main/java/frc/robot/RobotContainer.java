@@ -12,6 +12,7 @@ import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import frc.robot.Constants.Intake.IntakeConstants;
 import frc.robot.autos.*;
 import frc.robot.commands.*;
+import frc.robot.pathfinder.TestWeaver;
 import frc.robot.subsystems.*;
 
 /**
@@ -48,6 +49,7 @@ public class RobotContainer {
     private final Intake s_Intake = new Intake();
     private final Pivot s_Pivot = new Pivot();
 
+    /* Other Sysyems */
     //private final AprilTagger tag = new AprilTagger();
 
     /* Auto Chooser */
@@ -64,7 +66,7 @@ public class RobotContainer {
                 () -> false
             )
         );
-//racism
+
         s_Intake.setDefaultCommand(new RunCommand(() -> s_Intake.notake(), s_Intake));
 
         //s_Pivot.setDefaultCommand(new GoHome(s_Pivot));
@@ -73,9 +75,15 @@ public class RobotContainer {
         s_Chooser.setDefaultOption("DON'T BLOODY MOVE!!!", null);
         s_Chooser.addOption("Mobility", new Mobility(s_Swerve));
         s_Chooser.addOption("Reverse! Reverse!", new ReverseMobility(s_Swerve));
-        s_Chooser.addOption("Mid Shot", new EjectCube(s_Intake, IntakeConstants.hightakeSpeed).until(s_Intake::outakeAuoDone));
+        s_Chooser.addOption("Mid Shot", new EjectCube(s_Intake, IntakeConstants.hightakeSpeed).until(s_Intake::outakeAutoDone));
         s_Chooser.addOption("Charge Station", new ChargeStation(s_Swerve));
         s_Chooser.addOption("Far Charge", new FarChargeStation(s_Swerve));
+
+        //Test Autouns
+        s_Chooser.addOption("Test", new TestingAutons(s_Swerve, s_Pivot, s_Intake));
+        s_Chooser.addOption("Turn", new TrajectoryTest(s_Swerve, s_Pivot, s_Intake));
+        //s_Chooser.addOption("Test Weaver", new TestWeaver(s_Swerve));
+        // s_Chooser.addOption("Drive & Pickup", new Mobility(s_Swerve).andThen(new GoIntake(s_Pivot)).andThen(new IntakeCube(s_Intake).until(s_Intake::intakeAutoDone)).andThen(new GoHome(s_Pivot)));
 
         SmartDashboard.putData(s_Chooser);
 
@@ -105,7 +113,6 @@ public class RobotContainer {
  
         /* Test Commands */
         //tag.apriltagVisionThreadproc();
-        //racism
     }
 
     /**
