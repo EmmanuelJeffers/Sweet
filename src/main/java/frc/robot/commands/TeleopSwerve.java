@@ -28,6 +28,10 @@ public class TeleopSwerve extends CommandBase {
         this.robotCentricSup = robotCentricSup;
     }
 
+    public TeleopSwerve(frc.robot.Constants.Swerve s_Swerve2, DoubleSupplier translationSup2, DoubleSupplier strafeSup2,
+            DoubleSupplier rotationSup2, BooleanSupplier robotCentricSup2) {
+    }
+
     @Override
     public void execute() {
         /* Get Values, Deadband*/

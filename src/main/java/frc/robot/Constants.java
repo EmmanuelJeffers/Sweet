@@ -9,6 +9,7 @@ import edu.wpi.first.math.trajectory.TrapezoidProfile;
 import edu.wpi.first.math.util.Units;
 import frc.lib.util.COTSFalconSwerveConstants;
 import frc.lib.util.SwerveModuleConstants;
+import frc.robot.commands.TeleopSwerve;
 
 public final class Constants {
     public static final double stickDeadband = 0.1;
@@ -128,6 +129,9 @@ public final class Constants {
             public static final SwerveModuleConstants constants = 
                 new SwerveModuleConstants(driveMotorID, angleMotorID, canCoderID, angleOffset);
         }
+
+        public void setDefaultCommand(TeleopSwerve teleopSwerve) {
+        }
     }
 
     public static final class AutoConstants { 
@@ -154,31 +158,20 @@ public final class Constants {
         public static final double mobilityChargeDistance = Units.inchesToMeters(stickDeadband);
         public static final double mobilityDistance = Units.inchesToMeters(stickDeadband);
     }
-
     public static final class Intake {
         public static final class IntakeConstants { 
-            public static final double intakeSpeed = 0.3;
-            public static final double midtakeSpeed = 0.3;
-            public static final double hightakeSpeed = 0.5;
+            public static final double intakeSpeed = 0.334;
             public static final double outtakeSpeed = 0.333;
-            
             public static final class PivotConstants {
-                public static final double pivotKP = 1.5;
-                public static final double pivotKI = 0;
-                public static final double pivotkKD = 0;
 
-                public static final double pivotSpeed = 0.2;
-                public static final double homeSetpoint = 0.965;
-                public static final double intakeSetpoint = 0.59;
-                public static final double hybridSetpoint = 0.7;
-                public static final double midSetpoint = 0.8;
-                public static final double highSetpoint = 0;
-                public static final double pivotOffset = 0.0106969;
+                public static final double pivotSpeed = 0.254;
+                public static final double homeSetpoint = 0.0321;
+                public static final double intakeSetpoint = 0.4243;
             }
-
-            public static final class IntakeIDs {
-                public static final int intakeID = 4;
-                public static final int pivotID = 3;
+            public static final class IntakeIDs{
+            public static final int intakeID = 4;
+            public static final int pivotID = 3;
+//*kys */
             }
         }
     }

@@ -7,8 +7,15 @@ import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.InstantCommand;
 import edu.wpi.first.wpilibj2.command.RunCommand;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
-import frc.robot.commands.*;
 import frc.robot.subsystems.*;
+import frc.robot.commands.IntakeIn;
+import frc.robot.commands.IntakeOut;
+import frc.robot.commands.PivotDown;
+import frc.robot.commands.PivotUp;
+import frc.robot.commands.TeleopSwerve;
+import frc.robot.subsystems.Intake;
+import frc.robot.subsystems.Pivot;
+
 
 /**
  * This class is where the bulk of the robot should be declared. Since Command-based is a
@@ -41,8 +48,9 @@ public class RobotContainer {
     public RobotContainer() {
         configureButtonBindings();
 
-        s_Pivot.setDefaultCommand(new RunCommand(() -> s_Pivot.noPivot(), s_Pivot));
-        s_Intake.setDefaultCommand(new RunCommand(() -> s_Intake.noIntake(), s_Intake));
+         s_Pivot.setDefaultCommand(new RunCommand(() -> s_Pivot.noPivot(), s_Pivot));
+         s_Intake.setDefaultCommand(new RunCommand(() -> s_Intake.noIntake(), s_Intake));
+
         s_Swerve.setDefaultCommand(
             new TeleopSwerve(
                 s_Swerve, 
@@ -63,11 +71,11 @@ public class RobotContainer {
      */
     private void configureButtonBindings() {
         /* Driver Buttons */
-        zeroGyro.onTrue(new InstantCommand(()   -> s_Swerve.zeroGyro()));
-        pivotButUp.whileTrue(new RunCommand(()     -> s_Pivot.pivotUp(),       s_Pivot));
-        pivotButDown.whileTrue(new RunCommand(()   -> s_Pivot.pivotDown(),     s_Pivot));
-        intakeButIn.whileTrue(new RunCommand(()    -> s_Intake.intake(),       s_Intake));
-        intakButeOut.whileTrue(new RunCommand(()   -> s_Intake.outake(),         s_Intake));
+       zeroGyro.onTrue(new InstantCommand(()   -> s_Swerve.zeroGyro()));
+        pivotButUp.whileTrue(new PivotUp(s_Pivot));
+        pivotButDown.whileTrue(new PivotDown(s_Pivot));
+        intakeButIn.whileTrue(new IntakeIn(s_Intake));
+        intakButeOut.whileTrue(new IntakeOut(s_Intake));
     }
 
     /**
