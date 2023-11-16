@@ -12,7 +12,6 @@ import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import frc.robot.Constants.Intake.IntakeConstants;
 import frc.robot.autos.*;
 import frc.robot.commands.*;
-import frc.robot.pathfinder.TestWeaver;
 import frc.robot.subsystems.*;
 
 /**
@@ -81,8 +80,7 @@ public class RobotContainer {
 
         //Test Autouns
         s_Chooser.addOption("Test", new TestingAutons(s_Swerve, s_Pivot, s_Intake));
-        s_Chooser.addOption("Turn", new TrajectoryTest(s_Swerve, s_Pivot, s_Intake));
-        //s_Chooser.addOption("Test Weaver", new TestWeaver(s_Swerve));
+        //s_Chooser.addOption("Turn", new TrajectoryTest(s_Swerve, s_Pivot, s_Intake));
         // s_Chooser.addOption("Drive & Pickup", new Mobility(s_Swerve).andThen(new GoIntake(s_Pivot)).andThen(new IntakeCube(s_Intake).until(s_Intake::intakeAutoDone)).andThen(new GoHome(s_Pivot)));
 
         SmartDashboard.putData(s_Chooser);

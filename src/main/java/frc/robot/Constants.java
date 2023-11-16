@@ -177,7 +177,6 @@ public final class Constants {
             public static final class IntakeIDs {
                 public static final int intakeID = 4;
                 public static final int pivotID = 3;
-                //racism
             }
         }
     }
