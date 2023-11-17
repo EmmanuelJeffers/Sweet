@@ -13,6 +13,7 @@ import frc.robot.commands.IntakeOut;
 import frc.robot.commands.PivotDown;
 import frc.robot.commands.PivotUp;
 import frc.robot.commands.TeleopSwerve;
+import frc.robot.commands.GoHome;
 import frc.robot.subsystems.Intake;
 import frc.robot.subsystems.Pivot;
 
@@ -39,6 +40,7 @@ public class RobotContainer {
     public final JoystickButton pivotButDown = new JoystickButton(driver, PS4Controller.Button.kCircle.value);
     public final JoystickButton intakeButIn = new JoystickButton(driver, PS4Controller.Button.kR1.value);
     public final JoystickButton intakButeOut = new JoystickButton(driver, PS4Controller.Button.kL1.value);
+    public final JoystickButton goHome = new JoystickButton(driver, PS4Controller.Button.kTouchpad.value);
     
     /* Subsystems */
     private final Swerve s_Swerve = new Swerve();
@@ -76,6 +78,7 @@ public class RobotContainer {
         pivotButDown.whileTrue(new PivotDown(s_Pivot));
         intakeButIn.whileTrue(new IntakeIn(s_Intake));
         intakButeOut.whileTrue(new IntakeOut(s_Intake));
+        goHome.whileTrue(new GoHome (s_Pivot));
     }
 
     /**
