@@ -30,7 +30,6 @@ public class RobotContainer {
     private final int strafeAxis = PS4Controller.Axis.kLeftX.value;
     private final int rotationAxis = PS4Controller.Axis.kRightX.value;
 
-    /* Driver Buttons */ // TODO: Update button layout for Brunswick
     private final JoystickButton zeroGyro = new JoystickButton(driver, PS4Controller.Button.kShare.value);
     private final JoystickButton lock = new JoystickButton(driver, PS4Controller.Button.kOptions.value);
     private final JoystickButton autoIntake = new JoystickButton(driver, PS4Controller.Button.kR1.value);
@@ -81,7 +80,6 @@ public class RobotContainer {
         //Test Autouns
         s_Chooser.addOption("Test", new TestingAutons(s_Swerve, s_Pivot, s_Intake));
         //s_Chooser.addOption("Turn", new TrajectoryTest(s_Swerve, s_Pivot, s_Intake));
-        // s_Chooser.addOption("Drive & Pickup", new Mobility(s_Swerve).andThen(new GoIntake(s_Pivot)).andThen(new IntakeCube(s_Intake).until(s_Intake::intakeAutoDone)).andThen(new GoHome(s_Pivot)));
 
         SmartDashboard.putData(s_Chooser);
 

@@ -90,7 +90,6 @@ public class Pivot extends SubsystemBase {
   public boolean getLimit() { return limitSwitch.get(); }
 
 
-
   @Override
   public void periodic() {
     // This method will be called once per scheduler run
