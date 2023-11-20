@@ -76,6 +76,7 @@ public class RobotContainer {
         s_Chooser.addOption("Mid Shot", new EjectCube(s_Intake, IntakeConstants.hightakeSpeed).until(s_Intake::outakeAutoDone));
         s_Chooser.addOption("Charge Station", new ChargeStation(s_Swerve));
         s_Chooser.addOption("Far Charge", new FarChargeStation(s_Swerve));
+        s_Chooser.addOption("Sample", new exampleAuto(s_Swerve));
 
         //Test Autouns
         s_Chooser.addOption("Test", new TestingAutons(s_Swerve, s_Pivot, s_Intake));

@@ -33,11 +33,11 @@ public class TestingAutons extends SequentialCommandGroup {
             new TrajectoryConfig(
                     Constants.AutoConstants.kMaxSpeedMetersPerSecond,
                     Constants.AutoConstants.kMaxAccelerationMetersPerSecondSquared)
-                .setKinematics(Constants.SwerveDrive.swerveKinematics);
-                
+                .setKinematics(Constants.SwerveDrive.swerveKinematics).setReversed(true);
+
     Trajectory trajectory =
         TrajectoryGenerator.generateTrajectory(
-          new Pose2d(swerve.getPose().getX(), swerve.getPose().getY(), new Rotation2d(0)),
+          new Pose2d(5, 0, new Rotation2d(0)),
             List.of(new Translation2d(3, 0), new Translation2d(1, 0)),
             new Pose2d(0, 0, new Rotation2d(0)),
             config);
@@ -62,7 +62,7 @@ public class TestingAutons extends SequentialCommandGroup {
       new EjectCube(intake, IntakeConstants.hightakeSpeed).until(intake::outakeAutoDone),
       new Mobility(swerve),
       new GoIntake(pivot),
-      new IntakeCube(intake).until(intake::intakeAutoDone),
+      new IntakeCube(intake).until(intake::intakeAutoDone).withTimeout(1),
       new GoHome(pivot),
       swerveControllerCommand
     );
