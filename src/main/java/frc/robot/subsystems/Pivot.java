@@ -73,3 +73,4 @@ public  class Pivot extends SubsystemBase {
 //intakw id 4
 //pivot id  2
 //haiiiii emannual jefferson can you lend me 150 bucks NO
+//haiiiii emannual jefferson can you lend me 150 bucks NO
