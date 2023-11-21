@@ -23,16 +23,13 @@ public class ReverseMobility extends SequentialCommandGroup {
             new TrajectoryConfig(
                     Constants.AutoConstants.kMaxSpeedMetersPerSecond,
                     Constants.AutoConstants.kMaxAccelerationMetersPerSecondSquared)
-                .setKinematics(Constants.SwerveDrive.swerveKinematics);
-
-        config.setReversed(true);
+                .setKinematics(Constants.SwerveDrive.swerveKinematics).setReversed(true);
 
         Trajectory trajectory =
             TrajectoryGenerator.generateTrajectory(
-                // Start at the origin facing the +X direction
-                new Pose2d(0, 0, new Rotation2d(-180)),
+                new Pose2d(0, 0, new Rotation2d(180)),
                 List.of(new Translation2d(1, 0), new Translation2d(2, 0)),
-                new Pose2d(4, 0, new Rotation2d(-180)),
+                new Pose2d(4, 0, new Rotation2d(180)),
                 config);
 
         var thetaController =
