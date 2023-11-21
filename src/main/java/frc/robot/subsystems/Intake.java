@@ -8,9 +8,12 @@ import com.revrobotics.CANSparkMax;
 import com.revrobotics.CANSparkMax.IdleMode;
 import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 
+import edu.wpi.first.wpilibj.RobotState;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.lib.util.LEDStrip;
+import frc.lib.util.LEDStrip.FancyLED;
+import frc.robot.Robot;
 import frc.robot.Constants.AutoConstants;
 import frc.robot.Constants.Intake.IntakeConstants;
 import frc.robot.Constants.Intake.IntakeConstants.IntakeIDs;
@@ -23,7 +26,7 @@ public class Intake extends SubsystemBase {
   /** Creates a new Intake. */
   public Intake() {
      intakeMotor = new CANSparkMax(IntakeIDs.intakeID, MotorType.kBrushless);
-     led = new LEDStrip(0, 100);
+     led = new LEDStrip(0, 400);
 
      intakeMotor.setIdleMode(IdleMode.kCoast);
   }
@@ -40,9 +43,8 @@ public class Intake extends SubsystemBase {
 
   public void notake() {
     intakeMotor.set(0);
-    led.blink(0, 0, 0); // pink: 255, 105, 180 cooten candy blue: 160, 217, 239
-    //led.setFancyDualLayer(FancyLED.PULSE, 255, 105, 180, 160, 217, 239);
-    
+    //led.blink(0, 0, 0); // pink: 255, 105, 180 cooten candy blue: 160, 217, 239
+    led.setFancyDualLayer(FancyLED.KNIGHT_RIDER, 255, 105, 180, 160, 217, 239);
   }
 
   public boolean intakeAutoDone() {

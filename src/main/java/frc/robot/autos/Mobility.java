@@ -25,8 +25,6 @@ public class Mobility extends SequentialCommandGroup {
                     Constants.AutoConstants.kMaxAccelerationMetersPerSecondSquared)
                 .setKinematics(Constants.SwerveDrive.swerveKinematics);
 
-        //config.setReversed(true);
-
         Trajectory trajectory =
             TrajectoryGenerator.generateTrajectory(
                 // Start at the origin facing the +X direction
