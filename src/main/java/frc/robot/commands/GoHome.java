@@ -24,7 +24,7 @@ public class GoHome extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    //m_pivot.pivotGoHome();
+    m_pivot.goHome();
   }
   // Called once the command ends or is interrupted.
   @Override
