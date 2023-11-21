@@ -165,8 +165,8 @@ public final class Constants {
             public static final class PivotConstants {
 
                 public static final double pivotSpeed = 0.254;
-                public static final double homeSetpoint = 0.0321;
-                public static final double intakeSetpoint = 0.4243;
+                public static final double homeSetpoint = 0.06;
+                public static final double intakeSetpoint = 0.443;
                 public static final double pivotKP = 1.7;
                 public static final double pivotKI = 0;
                 public static final double pivotkKD = 0;

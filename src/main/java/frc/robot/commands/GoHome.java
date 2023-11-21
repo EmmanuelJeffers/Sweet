@@ -26,7 +26,6 @@ public class GoHome extends CommandBase {
   public void execute() {
     m_pivot.pivotGoHome();
   }
-
   // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {

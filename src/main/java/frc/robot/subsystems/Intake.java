@@ -14,8 +14,7 @@ import frc.robot.Constants.Intake.IntakeConstants.IntakeIDs;
 public class Intake extends SubsystemBase{
     private CANSparkMax intakeMotor;
    // private LEDStrip led;
-    public Intake(){
-        intakeMotor = new CANSparkMax(IntakeIDs.intakeID, MotorType.kBrushless);
+    public Intake() { intakeMotor = new CANSparkMax(IntakeIDs.intakeID, MotorType.kBrushless);
        // led = new LEDStrip(1, 100);
     }
     public void intake() { 
