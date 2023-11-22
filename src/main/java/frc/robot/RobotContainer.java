@@ -23,7 +23,6 @@ import frc.robot.subsystems.*;
 public class RobotContainer {
     /* Controllers */
     private final Joystick driver = new Joystick(0);
-    //private final Joystick operator = new Joystick(1);
 
     /* Drive Controls */
     private final int translationAxis = PS4Controller.Axis.kLeftY.value;
@@ -80,7 +79,6 @@ public class RobotContainer {
 
         //Test Autouns
         s_Chooser.addOption("Test", new TestingAutons(s_Swerve, s_Pivot, s_Intake));
-        //s_Chooser.addOption("Turn", new TrajectoryTest(s_Swerve, s_Pivot, s_Intake));
 
         SmartDashboard.putData(s_Chooser);
 

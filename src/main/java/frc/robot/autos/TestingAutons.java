@@ -39,12 +39,12 @@ public class TestingAutons extends SequentialCommandGroup {
         TrajectoryGenerator.generateTrajectory(
           new Pose2d(5, 0, new Rotation2d(0)),
             List.of(new Translation2d(3, 0), new Translation2d(1, 0)),
-            new Pose2d(0, 0, new Rotation2d(180)),
+            new Pose2d(0, 0, new Rotation2d(-2.7)),
             config);
 
     var thetaController =
         new ProfiledPIDController(
-            1, 0, 0, Constants.AutoConstants.kThetaControllerConstraints);
+            Constants.AutoConstants.kPThetaController, 0, 0, Constants.AutoConstants.kThetaControllerConstraints);
     thetaController.enableContinuousInput(-Math.PI, Math.PI);
 
     SwerveControllerCommand swerveControllerCommand =
@@ -61,10 +61,10 @@ public class TestingAutons extends SequentialCommandGroup {
     addCommands(
       new EjectCube(intake, IntakeConstants.hightakeSpeed).until(intake::outakeAutoDone),
       new Mobility(swerve),
-      new GoIntake(pivot),
-      new IntakeCube(intake).until(intake::intakeAutoDone).withTimeout(1),
+      new GoIntake(pivot).alongWith(new IntakeCube(intake).until(intake::intakeAutoDone).withTimeout(1)),
       new GoHome(pivot),
-      swerveControllerCommand
+      swerveControllerCommand,
+      new EjectCube(intake, IntakeConstants.hightakeSpeed).until(intake::outakeAutoDone)
     );
   }
 }
